@@ -4,12 +4,14 @@
 #include <string.h>
 #define MAX_DISCOS 20
 
+//Compilar: gcc main.c -o ./main.out && ./main.out
+
 typedef struct 
 {
     int id;
     char titulo[100];
     char *artista;
-    char *album;
+    char album[100];
     char *genero;
     int duracion_seg;
     int anho;
@@ -17,16 +19,14 @@ typedef struct
 }
 discos_;
 
-
 void print_discos(discos_ discos[MAX_DISCOS]);
 void generador_titulo(discos_ discos[MAX_DISCOS]);
 void generador_id(discos_ disco[MAX_DISCOS]);
 void generador_artista(discos_ discos[MAX_DISCOS]);
+void generador_album(discos_ discos[MAX_DISCOS]);
 void Exportacion(discos_ discos[MAX_DISCOS]);
 int busqueda_binaria_recursiva(discos_ discos[], int busqueda, int izquierda, int derecha);
 void ordenamiento_y_busqueda(discos_ discos[MAX_DISCOS]);
-
-
 
 int main ()
 {
@@ -35,9 +35,9 @@ int main ()
     discos_ discos[MAX_DISCOS];
 
     generador_id(discos);
-
     generador_titulo(discos);
     generador_artista(discos);
+    generador_album(discos);
 
     print_discos(discos);
     ordenamiento_y_busqueda(discos);
@@ -67,17 +67,19 @@ void generador_id(discos_ discos[MAX_DISCOS])
  */
 void generador_titulo(discos_ discos[MAX_DISCOS])
 {
+    char *adverbio[] = {"Aqui", "Pronto", "Jamas", "Acaso", "deprisa"};
     char *sustantivo[] = {"Pan", "Canada", "Edgardo", "Bordoli", "Torre"};
-    char *adjetivo [] = {"sangriento", "estancado", "montañista", "terrorista", "desgraciado"};
+    char *adjetivo [] = {"sangriento", "estancado", "montanhista", "terrorista", "desgraciado"};
 
-    int aux = 0, aux2 = 0;
+    int aux = 0, aux2 = 0, aux3 = 0;
 
     for (int i = 0; i < MAX_DISCOS; i++)
     {
         aux = rand() % 5;
         aux2 = rand() % 5;
+        aux3 = rand() % 5;
 
-        snprintf(discos[i].titulo, sizeof(discos[i].titulo), "%s %s", sustantivo[aux], adjetivo[aux2]);
+        snprintf(discos[i].titulo, sizeof(discos[i].titulo), "%s %s %s", adverbio[aux3], sustantivo[aux], adjetivo[aux2]);
     }
 }
 
@@ -94,19 +96,33 @@ void generador_artista(discos_ discos[MAX_DISCOS])
     }
 }
 
-void print_discos(discos_ discos[MAX_DISCOS])
+void generador_album(discos_ discos[MAX_DISCOS])
 {
-    printf("================================================================= \n");
-    printf("| %-5s | %-33s | %-15s |\n","ID","TITULO","ARTISTA");
-    printf("======================================== \n");
+    char *sustantivo[] = {"Pan", "Canada", "Edgardo", "Bordoli", "Torre"};
+    char *adjetivo [] = {"sangriento", "estancado", "montanhista", "terrorista", "desgraciado"};
+
+    int aux = 0, aux2 = 0;
 
     for (int i = 0; i < MAX_DISCOS; i++)
     {
-        printf("| %-5d | %-33s | %-15s | \n", discos[i].id, discos[i].titulo, discos[i].artista);
+        aux = rand() % 5;
+        aux2 = rand() % 5;
+
+        snprintf(discos[i].album, sizeof(discos[i].album), "%s %s", sustantivo[aux], adjetivo[aux2]);
     }
 }
 
+void print_discos(discos_ discos[MAX_DISCOS])
+{
+    printf("==================================================================================================== \n");
+    printf("| %-5s | %-33s | %-15s | %-33s | \n","ID","TITULO","ARTISTA","ALBUM");
+    printf("==================================================================================================== \n");
 
+    for (int i = 0; i < MAX_DISCOS; i++)
+    {
+        printf("| %-5d | %-33s | %-15s | %-33s | \n", discos[i].id, discos[i].titulo, discos[i].artista, discos[i].album);
+    }
+}
 
 /**
  * @brief Funcion realizado por benjamin Hernandez
