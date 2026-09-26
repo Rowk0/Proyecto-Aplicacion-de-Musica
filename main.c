@@ -25,6 +25,7 @@ void generador_id(discos_ disco[MAX_DISCOS]);
 void generador_artista(discos_ discos[MAX_DISCOS]);
 void generador_album(discos_ discos[MAX_DISCOS]);
 void generador_genero(discos_ discos[MAX_DISCOS]);
+void generador_duracion_seg(discos_ discos[MAX_DISCOS]);
 void Exportacion(discos_ discos[MAX_DISCOS]);
 int busqueda_binaria_recursiva(discos_ discos[], int busqueda, int izquierda, int derecha);
 void ordenamiento_y_busqueda(discos_ discos[MAX_DISCOS]);
@@ -40,6 +41,7 @@ int main ()
     generador_artista(discos);
     generador_album(discos);
     generador_genero(discos);
+    generador_duracion_seg(discos);
 
     print_discos(discos);
     ordenamiento_y_busqueda(discos);
@@ -127,15 +129,33 @@ void generador_genero(discos_ discos[MAX_DISCOS])
     }
 }
 
+void generador_duracion_seg(discos_ discos[MAX_DISCOS])
+{
+    int num = 0;
+
+    for (int i = 0; i < MAX_DISCOS; i++)
+    {
+        num = 180 + rand() % (300 - 180 + 1);
+
+        discos[i].duracion_seg = num;
+    }
+}
+
 void print_discos(discos_ discos[MAX_DISCOS])
 {
     printf("==================================================================================================================\n");
-    printf("| %-5s | %-33s | %-15s | %-33s | %-15s | \n","ID","TITULO","ARTISTA","ALBUM","GENERO");
+    printf("| %-5s | %-33s | %-15s | %-33s | %-15s | %-15s | \n","ID","TITULO","ARTISTA","ALBUM","GENERO","DURACION_SEG");
     printf("================================================================================================================== \n");
 
     for (int i = 0; i < MAX_DISCOS; i++)
     {
-        printf("| %-5d | %-33s | %-15s | %-33s | %-15s | \n", discos[i].id, discos[i].titulo, discos[i].artista, discos[i].album, discos[i].genero);
+        printf("| %-5d | %-33s | %-15s | %-33s | %-15s | %-15d | \n", 
+            discos[i].id, 
+            discos[i].titulo, 
+            discos[i].artista, 
+            discos[i].album, 
+            discos[i].genero, 
+            discos[i].duracion_seg);
     }
 }
 
