@@ -24,6 +24,7 @@ void generador_titulo(discos_ discos[MAX_DISCOS]);
 void generador_id(discos_ disco[MAX_DISCOS]);
 void generador_artista(discos_ discos[MAX_DISCOS]);
 void generador_album(discos_ discos[MAX_DISCOS]);
+void generador_genero(discos_ discos[MAX_DISCOS]);
 void Exportacion(discos_ discos[MAX_DISCOS]);
 int busqueda_binaria_recursiva(discos_ discos[], int busqueda, int izquierda, int derecha);
 void ordenamiento_y_busqueda(discos_ discos[MAX_DISCOS]);
@@ -38,6 +39,7 @@ int main ()
     generador_titulo(discos);
     generador_artista(discos);
     generador_album(discos);
+    generador_genero(discos);
 
     print_discos(discos);
     ordenamiento_y_busqueda(discos);
@@ -112,15 +114,28 @@ void generador_album(discos_ discos[MAX_DISCOS])
     }
 }
 
-void print_discos(discos_ discos[MAX_DISCOS])
+void generador_genero(discos_ discos[MAX_DISCOS])
 {
-    printf("==================================================================================================== \n");
-    printf("| %-5s | %-33s | %-15s | %-33s | \n","ID","TITULO","ARTISTA","ALBUM");
-    printf("==================================================================================================== \n");
+    char *genero[] = {"Pop", "Electronica", "Jazz", "Country", "Hyper Pop", "Dubstep", "DnB", "Indie Rock", "Soundtrack", "Musica clasica"};
+    int aux = 0;
 
     for (int i = 0; i < MAX_DISCOS; i++)
     {
-        printf("| %-5d | %-33s | %-15s | %-33s | \n", discos[i].id, discos[i].titulo, discos[i].artista, discos[i].album);
+        aux = rand() % 10;
+
+        discos[i].genero = genero[aux];
+    }
+}
+
+void print_discos(discos_ discos[MAX_DISCOS])
+{
+    printf("==================================================================================================================\n");
+    printf("| %-5s | %-33s | %-15s | %-33s | %-15s | \n","ID","TITULO","ARTISTA","ALBUM","GENERO");
+    printf("================================================================================================================== \n");
+
+    for (int i = 0; i < MAX_DISCOS; i++)
+    {
+        printf("| %-5d | %-33s | %-15s | %-33s | %-15s | \n", discos[i].id, discos[i].titulo, discos[i].artista, discos[i].album, discos[i].genero);
     }
 }
 
