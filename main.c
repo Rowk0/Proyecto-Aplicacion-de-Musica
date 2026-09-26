@@ -9,9 +9,9 @@
 typedef struct 
 {
     int id;
-    char titulo[100];
+    char *titulo;
     char *artista;
-    char album[100];
+    char *album;
     char *genero;
     int duracion_seg;
     int anho;
@@ -19,15 +19,16 @@ typedef struct
 }
 discos_;
 
-void print_discos(discos_ discos[MAX_DISCOS]);
-void generador_titulo(discos_ discos[MAX_DISCOS]);
-void generador_id(discos_ disco[MAX_DISCOS]);
-void generador_artista(discos_ discos[MAX_DISCOS]);
-void generador_album(discos_ discos[MAX_DISCOS]);
-void generador_genero(discos_ discos[MAX_DISCOS]);
-void generador_duracion_seg(discos_ discos[MAX_DISCOS]);
-void generador_anho(discos_ discos[MAX_DISCOS]);
-void generador_n_reproducciones(discos_ discos[MAX_DISCOS]);
+void print_discos(discos_ discos[MAX_DISCOS], int n_discos);
+void generador_titulo(discos_ discos[MAX_DISCOS], int n_discos);
+void init_discos(discos_ discos[MAX_DISCOS]);
+void generador_id(discos_ disco[MAX_DISCOS], int n_discos);
+void generador_artista(discos_ discos[MAX_DISCOS], int n_discos);
+void generador_album(discos_ discos[MAX_DISCOS], int n_discos);
+void generador_genero(discos_ discos[MAX_DISCOS], int n_discos);
+void generador_duracion_seg(discos_ discos[MAX_DISCOS], int n_discos);
+void generador_anho(discos_ discos[MAX_DISCOS], int n_discos);
+void generador_n_reproducciones(discos_ discos[MAX_DISCOS], int n_discos);
 void Exportacion(discos_ discos[MAX_DISCOS]);
 int busqueda_binaria_recursiva(discos_ discos[], int busqueda, int izquierda, int derecha);
 void ordenamiento_y_busqueda(discos_ discos[MAX_DISCOS]);
@@ -39,32 +40,54 @@ int main ()
 
     discos_ discos[MAX_DISCOS];
 
-    generador_id(discos);
-    generador_titulo(discos);
-    generador_artista(discos);
-    generador_album(discos);
-    generador_genero(discos);
-    generador_duracion_seg(discos);
-    generador_anho(discos);
-    generador_n_reproducciones(discos);
+    int n_discos = 0;
+
+    printf("Ingrese la cantidad de discos que desea generar: ");
+    scanf("%d", &n_discos);
+
+    init_discos(discos);
+    generador_id(discos, n_discos);
+    generador_titulo(discos, n_discos);
+    generador_artista(discos, n_discos);
+    generador_album(discos, n_discos);
+    generador_genero(discos, n_discos);
+    generador_duracion_seg(discos, n_discos);
+    generador_anho(discos, n_discos);
+    generador_n_reproducciones(discos, n_discos);
     fisher_yates(discos);
 
-    print_discos(discos);
+    print_discos(discos, n_discos);
     ordenamiento_y_busqueda(discos);
     Exportacion(discos);
 
     return 0;
 }
+
+void init_discos(discos_ discos[MAX_DISCOS])
+{
+    for (int i = 0; i < MAX_DISCOS; i++)
+    {
+        discos[i].id = 0;
+        discos[i].titulo = NULL;
+        discos[i].artista = NULL;
+        discos[i].album = NULL;
+        discos[i].genero = NULL;
+        discos[i].duracion_seg = 0;
+        discos[i].anho = 0;
+        discos[i].n_reproducciones = 0;
+    }
+}
+
 /**
  * @brief funcion hecho por Daniela, asigna valor de id en el arreglo MAX_DISCOS
  * 
  * @param discos 
  */
 
-void generador_id(discos_ discos[MAX_DISCOS])
+void generador_id(discos_ discos[MAX_DISCOS], int n_discos)
 {
     discos[0].id = 1000;
-    for (int i=1; i<MAX_DISCOS; i++){
+    for (int i=1; i<n_discos; i++){
         discos[i].id = discos[i-1].id + 1;
         //printf("num: %d y el id es: %d \n", i, discos[i].id);
     }
@@ -75,7 +98,7 @@ void generador_id(discos_ discos[MAX_DISCOS])
  * 
  * @param discos representa los discos a editar
  */
-void generador_titulo(discos_ discos[MAX_DISCOS])
+void generador_titulo(discos_ discos[MAX_DISCOS], int n_discos)
 {
     char *adverbio[] = {"Aqui", "Pronto", "Jamas", "Acaso", "deprisa"};
     char *sustantivo[] = {"Pan", "Canada", "Edgardo", "Bordoli", "Torre"};
@@ -83,22 +106,25 @@ void generador_titulo(discos_ discos[MAX_DISCOS])
 
     int aux = 0, aux2 = 0, aux3 = 0;
 
-    for (int i = 0; i < MAX_DISCOS; i++)
+    for (int i = 0; i < n_discos; i++)
     {
         aux = rand() % 5;
         aux2 = rand() % 5;
         aux3 = rand() % 5;
 
-        snprintf(discos[i].titulo, sizeof(discos[i].titulo), "%s %s %s", adverbio[aux3], sustantivo[aux], adjetivo[aux2]);
+        //Recuerdenme que debo liberar la memoria porque aun no lo hago
+        discos[i].titulo = malloc(100 * sizeof(char));
+
+        snprintf(discos[i].titulo, 100, "%s %s %s", adverbio[aux3], sustantivo[aux], adjetivo[aux2]);
     }
 }
 
-void generador_artista(discos_ discos[MAX_DISCOS])
+void generador_artista(discos_ discos[MAX_DISCOS], int n_discos)
 {
     char *artista[] = {"Jere Klein", "Bad Bunny", "Cris MJ", "Kidd Voodoo", "Feid", "Karol G", "Lucky Brown", "Anuel AA", "Katteyes", "Blessd"};
     int aux = 0;
 
-    for (int i = 0; i < MAX_DISCOS; i++)
+    for (int i = 0; i < n_discos; i++)
     {
         aux = rand() % 10;
 
@@ -106,37 +132,39 @@ void generador_artista(discos_ discos[MAX_DISCOS])
     }
 }
 
-void generador_album(discos_ discos[MAX_DISCOS])
+void generador_album(discos_ discos[MAX_DISCOS], int n_discos)
 {
     char *sustantivo[] = {"Pan", "Canada", "Edgardo", "Bordoli", "Torre"};
     char *adjetivo [] = {"sangriento", "estancado", "montanhista", "terrorista", "desgraciado"};
 
     int aux = 0, aux2 = 0, aux_bin = 0;
 
-    for (int i = 0; i < MAX_DISCOS; i++)
+    for (int i = 0; i < n_discos; i++)
     {
         aux = rand() % 5;
         aux2 = rand() % 5;
         aux_bin = rand() % 2;
 
+        discos[i].album = malloc(100 * sizeof(char));
+
         if (aux_bin == 1)
         {
-            snprintf(discos[i].album, sizeof(discos[i].album), "%s %s", sustantivo[aux], adjetivo[aux2]);
+            snprintf(discos[i].album, 100, "%s %s", sustantivo[aux], adjetivo[aux2]);
         }
         else
         {
-            snprintf(discos[i].album, sizeof(discos[i].album), "Sencillo");
+            snprintf(discos[i].album, 100, "Sencillo");
         }
         
     }
 }
 
-void generador_genero(discos_ discos[MAX_DISCOS])
+void generador_genero(discos_ discos[MAX_DISCOS], int n_discos)
 {
     char *genero[] = {"Pop", "Electronica", "Jazz", "Country", "Hyper Pop", "Dubstep", "DnB", "Indie Rock", "Soundtrack", "Musica clasica"};
     int aux = 0;
 
-    for (int i = 0; i < MAX_DISCOS; i++)
+    for (int i = 0; i < n_discos; i++)
     {
         aux = rand() % 10;
 
@@ -144,11 +172,11 @@ void generador_genero(discos_ discos[MAX_DISCOS])
     }
 }
 
-void generador_duracion_seg(discos_ discos[MAX_DISCOS])
+void generador_duracion_seg(discos_ discos[MAX_DISCOS], int n_discos)
 {
     int num = 0;
 
-    for (int i = 0; i < MAX_DISCOS; i++)
+    for (int i = 0; i < n_discos; i++)
     {
         num = 180 + rand() % (300 - 180 + 1);
 
@@ -156,11 +184,11 @@ void generador_duracion_seg(discos_ discos[MAX_DISCOS])
     }
 }
 
-void generador_anho(discos_ discos[MAX_DISCOS])
+void generador_anho(discos_ discos[MAX_DISCOS], int n_discos)
 {
     int anho = 0;
 
-    for (int i = 0; i < MAX_DISCOS; i++)
+    for (int i = 0; i < n_discos; i++)
     {
         anho = 1900 + rand() % (2026 - 1900 + 1);
 
@@ -168,11 +196,11 @@ void generador_anho(discos_ discos[MAX_DISCOS])
     }
 }
 
-void generador_n_reproducciones(discos_ discos[MAX_DISCOS])
+void generador_n_reproducciones(discos_ discos[MAX_DISCOS], int n_discos)
 {
     int n_reproducciones = 0;
 
-    for (int i = 0; i < MAX_DISCOS; i++)
+    for (int i = 0; i < n_discos; i++)
     {
         n_reproducciones = 5000 + rand() % (10000 - 5000 + 1);
 
@@ -191,13 +219,13 @@ void fisher_yates(discos_ discos[MAX_DISCOS]){
     }
 }
 
-void print_discos(discos_ discos[MAX_DISCOS])
+void print_discos(discos_ discos[MAX_DISCOS], int n_discos)
 {
     printf("====================================================================================================================================================\n");
     printf("| %-5s | %-30s | %-15s | %-20s | %-15s | %-15s | %-5s | %-18s | \n","ID","TITULO","ARTISTA","ALBUM","GENERO","DURACION_SEG","ANHO","N_REPRODUCCIONES");
     printf("==================================================================================================================================================== \n");
 
-    for (int i = 0; i < MAX_DISCOS; i++)
+    for (int i = 0; i < n_discos; i++)
     {
         printf("| %-5d | %-30s | %-15s | %-20s | %-15s | %-15d | %-5d | %-18d | \n", 
             discos[i].id, 
