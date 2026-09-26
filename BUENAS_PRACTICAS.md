@@ -1,2 +1,2 @@
-1.- Hacer commit al minimo avance para que los demás estén al día
-2.- Avisar que funcion estamos modificando
+1.- Hacer "Git pull" antes de empezar a programar
+2.- Cuando termines una funcionalidad, siempre subirla a git hub. Sea la modificacion pequeña o grande
