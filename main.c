@@ -32,7 +32,7 @@ void generador_n_reproducciones(discos_ discos[MAX_DISCOS], int n_discos);
 void Exportacion(discos_ discos[MAX_DISCOS]);
 int busqueda_binaria_recursiva(discos_ discos[], int busqueda, int izquierda, int derecha);
 void ordenamiento_y_busqueda(discos_ discos[MAX_DISCOS]);
-void fisher_yates(discos_ discos[MAX_DISCOS]);
+void fisher_yates(discos_ discos[MAX_DISCOS], int n_discos);
 
 int main ()
 {
@@ -54,7 +54,7 @@ int main ()
     generador_duracion_seg(discos, n_discos);
     generador_anho(discos, n_discos);
     generador_n_reproducciones(discos, n_discos);
-    fisher_yates(discos);
+    fisher_yates(discos, n_discos);
 
     print_discos(discos, n_discos);
     ordenamiento_y_busqueda(discos);
@@ -208,9 +208,9 @@ void generador_n_reproducciones(discos_ discos[MAX_DISCOS], int n_discos)
     }
 }
 
-void fisher_yates(discos_ discos[MAX_DISCOS]){
+void fisher_yates(discos_ discos[MAX_DISCOS], int n_discos){
     int j = 0;
-    for (int i = MAX_DISCOS - 1; i > 0; i--){
+    for (int i = n_discos - 1; i > 0; i--){
         j = rand() % (i + 1);
 
         discos_ temp = discos[i];
