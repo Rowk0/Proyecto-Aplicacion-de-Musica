@@ -401,6 +401,7 @@ void liberar_memoria(discos_ discos[MAX_DISCOS])
         free(discos[i].album);
     }
 }
+
 void consultar_fila_re(discos_ fila_re[MAX_FILA],int n_fila)
 {
     if (n_fila == 0)
@@ -420,7 +421,6 @@ void consultar_fila_re(discos_ fila_re[MAX_FILA],int n_fila)
     }
     printf("====================================================================================================================================================\n");
 }
-
 void anhadir_fila_re(discos_ fila_re[MAX_FILA], discos_ discos[MAX_DISCOS], int *n_fila, int n_discos)
 {
     if (*n_fila >= MAX_FILA)
@@ -469,7 +469,6 @@ void anhadir_fila_re(discos_ fila_re[MAX_FILA], discos_ discos[MAX_DISCOS], int 
 
     printf("SE ANHADIO A LA FILA DE REPRODUCCION");
 }
-
 void quitar_fila_re(discos_ fila_re[MAX_FILA], int *n_fila)
 {
     if (*n_fila == 0)
@@ -544,13 +543,11 @@ void quitar_fila_re(discos_ fila_re[MAX_FILA], int *n_fila)
     }
     (*n_fila)--;
 }
-
 void vaciar_fila_re(int *n_fila)
 {
     *n_fila = 0;
     printf("Fila vaciada completamente \n");
 }
-
 void menu_fila_re(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, int n_discos)
 {
     int opcion_fila_re = 0;
