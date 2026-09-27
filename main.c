@@ -34,6 +34,8 @@ int busqueda_binaria_recursiva(discos_ discos[], int busqueda, int izquierda, in
 void ordenamiento_y_busqueda(discos_ discos[MAX_DISCOS]);
 void fisher_yates(discos_ discos[MAX_DISCOS], int n_discos);
 void listar_artistas_disponibles(discos_ discos[MAX_DISCOS]);
+void buscar_por_genero(discos_ discos[MAX_DISCOS]);
+void liberar_memoria(discos_ discos[MAX_DISCOS]);
 
 int main ()
 {
@@ -60,6 +62,8 @@ int main ()
     ordenamiento_y_busqueda(discos);
     Exportacion(discos);
 
+    liberar_memoria(discos);
+
     return 0;
 }
 
@@ -75,11 +79,12 @@ void listar_artistas_disponibles(discos_ discos[MAX_DISCOS])
 
         if (discos[i].artista != NULL) 
         {   
-            for (int k = 0; k < MAX_DISCOS; k++)
+            for (int k = 0; k < j; k++)
             {
-                if (artistas_disponible[k] == discos[i].artista)
+                if (strcmp(artistas_disponible[k], discos[i].artista) == 0)
                 {
                     seEncontró = 1;
+                    break;
                 }
             }
 
@@ -291,6 +296,7 @@ void ordenamiento_y_busqueda(discos_ discos[MAX_DISCOS])
     printf("1- Busqueda por id\n");
     printf("2- Busqueda por Nombre\n");
     printf("3- Busqueda por Artista\n");
+    printf("4- Busqueda por genero\n");
     scanf("%d",&seleccion);
 
     if(seleccion == 1) // menu busqueda por id, Los otros numeros son de ejemplo despues de max_discos
@@ -301,6 +307,24 @@ void ordenamiento_y_busqueda(discos_ discos[MAX_DISCOS])
         printf("\n\n| %-5d | %-33s | %-15s | \n", discos[busqueda].id, discos[busqueda].titulo, discos[busqueda].artista);
     }
 
+    if (seleccion == 4)
+    {
+        buscar_por_genero(discos);
+    }
+    
+
+}
+
+void buscar_por_genero(discos_ discos[MAX_DISCOS])
+{
+    char seleccion[50];
+
+    printf("Generos disponibles: ");
+    printf("Pop - Electronica - Jazz - Country - Hyper Pop - Dubstep - DnB - Indie Rock - Soundtrack - Musica clasica");
+    printf("\nEscriba el que desee buscar: ");
+    scanf("%s", seleccion);
+
+    //Falta
 }
 
 /**
@@ -356,4 +380,13 @@ void Exportacion(discos_ discos[MAX_DISCOS])
     printf("Datos guardados correctamente\n");
 
     fclose(archivo_csv);
+}
+
+void liberar_memoria(discos_ discos[MAX_DISCOS])
+{
+    for (int i = 0; i < MAX_DISCOS; i++)
+    {
+        free(discos[i].titulo);
+        free(discos[i].album);
+    }
 }
