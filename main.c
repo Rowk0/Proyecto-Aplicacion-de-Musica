@@ -3,6 +3,7 @@
 #include <time.h>
 #include <string.h>
 #define MAX_DISCOS 20
+#define MAX_FILA 20
 
 //Compilar: gcc main.c -o ./main.out && ./main.out
 
@@ -36,14 +37,24 @@ void fisher_yates(discos_ discos[MAX_DISCOS], int n_discos);
 void listar_artistas_disponibles(discos_ discos[MAX_DISCOS]);
 void buscar_por_genero(discos_ discos[MAX_DISCOS]);
 void liberar_memoria(discos_ discos[MAX_DISCOS]);
+void consultar_fila_re(discos_ fila_re[MAX_FILA], int n_fila);
+void anhadir_fila_re(discos_ fila_re[MAX_FILA], discos_ discos[MAX_DISCOS], int *n_fila, int n_discos);
+void quitar_fila_re(discos_ fila_re[MAX_FILA], int *n_fila);
+void vaciar_fila_re(int *n_fila);
+void menu_fila_re(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, int n_discos);
 
 int main ()
 {
     srand(time(NULL));
 
     discos_ discos[MAX_DISCOS];
+    discos_ fila_re[MAX_FILA];
 
     int n_discos = rand() % MAX_DISCOS + 1;
+    int n_fila = 0;
+
+    printf("Ingrese la cantidad de discos que desea generar: ");
+    scanf("%d", &n_discos);
 
     init_discos(discos);
     generador_id(discos, n_discos);
@@ -253,7 +264,8 @@ void generador_n_reproducciones(discos_ discos[MAX_DISCOS], int n_discos)
     }
 }
 
-void fisher_yates(discos_ discos[MAX_DISCOS], int n_discos){
+void fisher_yates(discos_ discos[MAX_DISCOS], int n_discos)
+{
     int j = 0;
     for (int i = n_discos - 1; i > 0; i--){
         j = rand() % (i + 1);
@@ -381,12 +393,193 @@ void Exportacion(discos_ discos[MAX_DISCOS])
 
     fclose(archivo_csv);
 }
-
 void liberar_memoria(discos_ discos[MAX_DISCOS])
 {
     for (int i = 0; i < MAX_DISCOS; i++)
     {
         free(discos[i].titulo);
         free(discos[i].album);
+    }
+}
+void consultar_fila_re(discos_ fila_re[MAX_FILA],int n_fila)
+{
+    if (n_fila == 0)
+    {
+        printf("La lista de reproducion esta vacia \n");
+        return;
+    }
+    
+    printf("====================================================================================================================================================\n");
+    printf("|                                                       FILA DE REPRODUCCION                                                                       |\n");
+    printf("====================================================================================================================================================\n");
+    printf("| %-5s | %-5s | %-30s | %-15s | %-20s |\n","POS","ID","TITULO","ARTISTA","ALBUM");
+    printf("====================================================================================================================================================\n");
+    for (int i = 0; i < n_fila; i++)
+    {
+        printf("| %-5d | %-5d | %-30s | %-15s | %-20s|\n", i+1, fila_re[i].id, fila_re[i].titulo, fila_re[i].artista, fila_re[i].album);
+    }
+    printf("====================================================================================================================================================\n");
+}
+
+void anhadir_fila_re(discos_ fila_re[MAX_FILA], discos_ discos[MAX_DISCOS], int *n_fila, int n_discos)
+{
+    if (*n_fila >= MAX_FILA)
+    {
+        printf("Fila de reproduccion llena \n");
+        return;
+    }
+    
+    int id_buscar = 0;
+    printf("Ingrese el ID de la cancion que desea anhadir a la fila de reproduccion \n");
+    printf("ID: \n");
+    scanf("%d", &id_buscar);
+
+    int id_catalogo = -1;
+    for (int i = 0; i < n_discos; i++)
+    {
+        if (discos[i].id == id_buscar)
+        {
+            id_catalogo = i;
+            break;
+        }
+    }
+    
+    if (id_catalogo == -1)
+    {
+        printf("No se encontro ninguna cancion con este ID \n");
+        return;
+    }
+
+    for (int i = 0; i < *n_fila; i++)
+    {
+        if (fila_re[i].id == id_buscar)
+        {
+            printf("Esta cancion ya se encuentra en la lista de reproduccion \n");
+            break;
+        }
+    }
+    
+    
+    for (int i = *n_fila; i > 0; i--) //hacer espacion enla posicion 0
+    {
+        fila_re[i] = fila_re[i-1];
+    }
+    fila_re[0] = discos[id_catalogo]; //insertar en la posicion 0
+    (*n_fila)++;
+
+    printf("SE ANHADIO A LA FILA DE REPRODUCCION");
+}
+
+void quitar_fila_re(discos_ fila_re[MAX_FILA], int *n_fila)
+{
+    if (*n_fila == 0)
+    {
+        printf("La lista de reproduccion esta vacia \n");
+        return;
+    }
+    
+    int opcion = 0;
+    printf("--- Eliminar de la fila ---\n");
+    printf("1. Eliminar por posicion \n");
+    printf("2. Eliminar por ID \n");
+    printf("Seleccione su opcion: \n");
+    scanf("%d", &opcion);
+
+    int pos_borrar = -1;
+
+    switch (opcion)
+    {
+        case 1:
+        {
+            int pos_elegida = 0;
+
+            consultar_fila_re(fila_re, *n_fila);
+
+            printf("Ingrese la posicion que desea eliminar: \n");
+            scanf("%d", &pos_elegida);
+
+            if (pos_elegida < 1 || pos_elegida > *n_fila)
+            {
+                printf("Esta posicion no existe/fuera de rango\n");
+                return;
+            }
+
+            pos_borrar = pos_elegida - 1;
+        
+            break;
+        }
+        case 2:
+        {    
+            int id_elegido = 0;
+
+            consultar_fila_re(fila_re, *n_fila);
+
+            printf("Ingrese el ID de la cancion que desea eliminar: \n");
+            scanf("%d", &id_elegido);
+
+            for (int i = 0; i < *n_fila; i++)
+            {
+                if (fila_re[i].id == id_elegido)
+                {
+                    pos_borrar = i;
+                    break;
+                }
+            }
+
+            if (pos_borrar == -1)
+            {
+                printf("No se encontro el ID de la cancion \n");
+                return;
+            }
+            break;
+        }
+        default:
+            printf("Opcion no valida. \n");
+        return;
+    }
+
+    for (int i = pos_borrar; i < *n_fila-1 ; i++)
+    {
+        fila_re[i] = fila_re[i+1];
+    }
+    (*n_fila)--;
+}
+
+void vaciar_fila_re(int *n_fila)
+{
+    *n_fila = 0;
+    printf("Fila vaciada completamente \n");
+}
+
+void menu_fila_re(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, int n_discos)
+{
+    int opcion_fila_re = 0;
+
+    printf("---- MENU FILA DE REPRODUCCION ---- \n");
+    printf("1. Consultar fila de reproduccion \n");
+    printf("2. Anhadir cancion \n");
+    printf("3. Quitar cancion \n");
+    printf("4. Vaciar lista de reproduccion \n");
+    //printf("5. Regresar menu principal \n"); DEPENDE DE LA INTERFAZ!!
+    printf("Elija su opcion: \n");
+    scanf("%d", &opcion_fila_re);
+
+    switch (opcion_fila_re)
+    {
+    case 1:
+        consultar_fila_re(fila_re, *n_fila);
+        break;
+    case 2:
+        anhadir_fila_re(fila_re, discos, n_fila, n_discos);
+        break;
+    case 3:
+        quitar_fila_re(fila_re, n_fila);
+        break;
+    case 4:
+        vaciar_fila_re(n_fila);
+        break;
+    default:
+        printf("Opcion invalida\n");
+        break;
     }
 }
