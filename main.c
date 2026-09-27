@@ -32,10 +32,10 @@ void generador_anho(discos_ discos[MAX_DISCOS], int n_discos);
 void generador_n_reproducciones(discos_ discos[MAX_DISCOS], int n_discos);
 void Exportacion(discos_ discos[MAX_DISCOS]);
 int busqueda_binaria_recursiva(discos_ discos[], int busqueda, int izquierda, int derecha);
-void ordenamiento_y_busqueda(discos_ discos[MAX_DISCOS]);
+void ordenamiento_y_busqueda(discos_ discos[MAX_DISCOS], int n_discos);
 void fisher_yates(discos_ discos[MAX_DISCOS], int n_discos);
 void listar_artistas_disponibles(discos_ discos[MAX_DISCOS]);
-void buscar_por_genero(discos_ discos[MAX_DISCOS]);
+void buscar_por_genero(discos_ discos[MAX_DISCOS], int n_discos);
 void liberar_memoria(discos_ discos[MAX_DISCOS]);
 void consultar_fila_re(discos_ fila_re[MAX_FILA], int n_fila);
 void anhadir_fila_re(discos_ fila_re[MAX_FILA], discos_ discos[MAX_DISCOS], int *n_fila, int n_discos);
@@ -53,9 +53,6 @@ int main ()
     int n_discos = rand() % MAX_DISCOS + 1;
     int n_fila = 0;
 
-    printf("Ingrese la cantidad de discos que desea generar: ");
-    scanf("%d", &n_discos);
-
     init_discos(discos);
     generador_id(discos, n_discos);
     generador_titulo(discos, n_discos);
@@ -70,7 +67,7 @@ int main ()
 
     listar_artistas_disponibles(discos);
     print_discos(discos, n_discos);
-    ordenamiento_y_busqueda(discos);
+    ordenamiento_y_busqueda(discos, n_discos);
     Exportacion(discos);
 
     liberar_memoria(discos);
@@ -301,7 +298,7 @@ void print_discos(discos_ discos[MAX_DISCOS], int n_discos)
  * 
  * @param discos 
  */
-void ordenamiento_y_busqueda(discos_ discos[MAX_DISCOS])
+void ordenamiento_y_busqueda(discos_ discos[MAX_DISCOS], int n_discos)
 {
     //CAMBIAR LA FUNCION, UNA COSA ES EL MENU Y OTRA COSA ES EL ORDENAMIENTO Y BUSQUEDA
     int seleccion, busca;
@@ -321,22 +318,104 @@ void ordenamiento_y_busqueda(discos_ discos[MAX_DISCOS])
 
     if (seleccion == 4)
     {
-        buscar_por_genero(discos);
+        buscar_por_genero(discos, n_discos);
     }
     
 
 }
 
-void buscar_por_genero(discos_ discos[MAX_DISCOS])
+void buscar_por_genero(discos_ discos[MAX_DISCOS], int n_discos)
 {
-    char seleccion[50];
-
-    printf("Generos disponibles: ");
-    printf("Pop - Electronica - Jazz - Country - Hyper Pop - Dubstep - DnB - Indie Rock - Soundtrack - Musica clasica");
+    char seleccion[50] = {0};
+    int cant_canciones_genero = 0, k = 0;
+    int pop = 0, electronica = 0, jazz = 0, country = 0, hyper_pop = 0, dubstep = 0, dnb = 0, indie_rock = 0, soundtrack = 0, musica_clasica = 0;
+    
+    for (int i = 0; i < n_discos; i++)
+    {
+        if (strcmp(discos[i].genero, "Pop") == 0)
+        {
+            pop++;
+        }
+        else if (strcmp(discos[i].genero, "Electronica") == 0)
+        {
+            electronica++;
+        }
+        else if (strcmp(discos[i].genero, "Jazz") == 0)
+        {
+            jazz++;
+        }
+        else if (strcmp(discos[i].genero, "Country") == 0)
+        {
+            country++;
+        }
+        else if (strcmp(discos[i].genero, "Hyper Pop") == 0)
+        {
+            hyper_pop++;
+        }
+        else if (strcmp(discos[i].genero, "Dubstep") == 0)
+        {
+            dubstep++;
+        }
+        else if (strcmp(discos[i].genero, "DnB") == 0)
+        {
+            dnb++;
+        }
+        else if (strcmp(discos[i].genero, "Indie Rock") == 0)
+        {
+            indie_rock++;
+        }
+        else if (strcmp(discos[i].genero, "Soundtrack") == 0)
+        {
+            soundtrack++;
+        }
+        else if (strcmp(discos[i].genero, "Musica clasica") == 0)
+        {
+            musica_clasica++;
+        }
+    }
+    
+   printf("Generos disponibles:\n");
+    printf("Pop: %d\n", pop);
+    printf("Electronica: %d\n", electronica);
+    printf("Jazz: %d\n", jazz);
+    printf("Country: %d\n", country);
+    printf("Hyper Pop: %d\n", hyper_pop);
+    printf("Dubstep: %d\n", dubstep);
+    printf("DnB: %d\n", dnb);
+    printf("Indie Rock: %d\n", indie_rock);
+    printf("Soundtrack: %d\n", soundtrack);
+    printf("Musica clasica: %d\n", musica_clasica);
+    
     printf("\nEscriba el que desee buscar: ");
-    scanf("%s", seleccion);
+    scanf(" %49[^\n]", seleccion); // El espacio al inicio omite espacios/Enter previos (IA)
 
-    //Falta
+    printf("====================================================================================================================================================\n");
+    printf("|                                                            %-80s      |\n", seleccion);
+    printf("====================================================================================================================================================\n");
+    printf("| %-5s | %-30s | %-15s | %-20s | %-15s | %-15s | %-5s | %-18s | \n","ID","TITULO","ARTISTA","ALBUM","GENERO","DURACION_SEG","ANHO","N_REPRODUCCIONES");
+    printf("==================================================================================================================================================== \n");
+
+
+    for (int j = 0; j < n_discos; j++)
+    {
+        if (strcmp(discos[j].genero, seleccion) == 0)
+        {
+            cant_canciones_genero++;
+
+            printf("| %-5d | %-30s | %-15s | %-20s | %-15s | %-15d | %-5d | %-18d | \n", 
+                discos[j].id, 
+                discos[j].titulo, 
+                discos[j].artista, 
+                discos[j].album, 
+                discos[j].genero, 
+                discos[j].duracion_seg,
+                discos[j].anho,
+                discos[j].n_reproducciones);
+        }
+    }
+
+    printf("\nHay %d cancion/es del genero que eligio \n", cant_canciones_genero);
+    
 }
 
 /**
@@ -389,7 +468,7 @@ void Exportacion(discos_ discos[MAX_DISCOS])
     {
         fprintf(archivo_csv, "%d,%s,%s\n", discos[i].id, discos[i].titulo, discos[i].artista);
     }
-    printf("Datos guardados correctamente\n");
+    printf("\nDatos guardados correctamente\n");
 
     fclose(archivo_csv);
 }
