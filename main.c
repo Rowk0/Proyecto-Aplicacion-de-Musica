@@ -286,11 +286,13 @@ void print_discos(discos_ discos[MAX_DISCOS], int n_discos)
  */
 void ordenamiento_y_busqueda(discos_ discos[MAX_DISCOS])
 {
+    //CAMBIAR LA FUNCION, UNA COSA ES EL MENU Y OTRA COSA ES EL ORDENAMIENTO Y BUSQUEDA
     int seleccion, busca;
     printf("1- Busqueda por id\n");
     printf("2- Busqueda por Nombre\n");
     printf("3- Busqueda por Artista\n");
     scanf("%d",&seleccion);
+
     if(seleccion == 1) // menu busqueda por id, Los otros numeros son de ejemplo despues de max_discos
     {
         printf("Selecciona la id del Thema\n");
@@ -298,6 +300,7 @@ void ordenamiento_y_busqueda(discos_ discos[MAX_DISCOS])
         int busqueda =busqueda_binaria_recursiva(discos, busca, 0, MAX_DISCOS - 1);
         printf("\n\n| %-5d | %-33s | %-15s | \n", discos[busqueda].id, discos[busqueda].titulo, discos[busqueda].artista);
     }
+
 }
 
 /**
