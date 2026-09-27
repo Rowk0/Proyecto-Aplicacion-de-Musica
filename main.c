@@ -33,6 +33,7 @@ void Exportacion(discos_ discos[MAX_DISCOS]);
 int busqueda_binaria_recursiva(discos_ discos[], int busqueda, int izquierda, int derecha);
 void ordenamiento_y_busqueda(discos_ discos[MAX_DISCOS]);
 void fisher_yates(discos_ discos[MAX_DISCOS], int n_discos);
+void listar_artistas_disponibles(discos_ discos[MAX_DISCOS]);
 
 int main ()
 {
@@ -40,10 +41,7 @@ int main ()
 
     discos_ discos[MAX_DISCOS];
 
-    int n_discos = 0;
-
-    printf("Ingrese la cantidad de discos que desea generar: ");
-    scanf("%d", &n_discos);
+    int n_discos = rand() % MAX_DISCOS + 1;
 
     init_discos(discos);
     generador_id(discos, n_discos);
@@ -56,11 +54,53 @@ int main ()
     generador_n_reproducciones(discos, n_discos);
     fisher_yates(discos, n_discos);
 
+
+    listar_artistas_disponibles(discos);
     print_discos(discos, n_discos);
     ordenamiento_y_busqueda(discos);
     Exportacion(discos);
 
     return 0;
+}
+
+void listar_artistas_disponibles(discos_ discos[MAX_DISCOS])
+{
+    char *artistas_disponible[MAX_DISCOS];
+    int seEncontró = 0;
+    int j = 0;
+
+    for (int i = 0; i < MAX_DISCOS; i++)
+    {
+        seEncontró = 0;
+
+        if (discos[i].artista != NULL) 
+        {   
+            for (int k = 0; k < MAX_DISCOS; k++)
+            {
+                if (artistas_disponible[k] == discos[i].artista)
+                {
+                    seEncontró = 1;
+                }
+            }
+
+            if (seEncontró == 0)
+            {
+                artistas_disponible[j] = discos[i].artista;
+                j++;
+            }
+        }   
+    }
+
+    ///////////////////////////////////////////////////////////
+
+    printf("==================================\n");
+    printf("| %-30s |\n", "ARTISTAS DISPONIBLES"); 
+    printf("================================== \n");
+
+    for (int i = 0; i < j; i++)
+    {
+        printf("| %-30s |\n", artistas_disponible[i]); 
+    }
 }
 
 void init_discos(discos_ discos[MAX_DISCOS])
