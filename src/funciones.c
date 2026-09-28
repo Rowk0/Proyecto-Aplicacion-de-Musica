@@ -280,12 +280,18 @@ void busqueda(discos_ discos[MAX_DISCOS], int n_discos)
     printf("| 3- Busqueda por Artista        |\n");
     printf("| 4- Busqueda por Genero Musical |\n");
     printf("==================================\n\n");
-    scanf("%d",&seleccion);
+    if(scanf("%d",&seleccion) != 1)
+    {
+        return;
+    }
 
-    if(seleccion == 1) // 
+    if(seleccion == 1) 
     {
         printf("Selecciona la id del Thema\n");
-        scanf("%d",&busca);
+        if(scanf("%d",&busca) != 1)
+        {
+            return;
+        }
 
         int busqueda =busqueda_binaria_recursiva(discos, busca, 0, n_discos - 1);
         if (busqueda != -1)
@@ -316,7 +322,10 @@ void buscar_nombre(discos_ discos[], int n_discos)
 {
     char nombre_ingresado[50];
     printf("Ingrese el nombre de la cancion\n");
-    scanf(" %49[^\n]", nombre_ingresado);
+    if(scanf(" %49[^\n]", nombre_ingresado) != 1)
+    {
+        return;
+    }
     for (int i = 0; i < n_discos; i++)
     {
         // Validación contra NULL y comparación exacta de cadenas
@@ -338,8 +347,10 @@ void buscar_artista(discos_ discos[], int n_discos)
 {
     char artita_ingresado[30];
     printf("Ingrese el nombre exacto o parcial del artista: ");
-    scanf(" %29[^\n]", artita_ingresado); /** [^\n] esto sirve que pueda leer el espacio */
-
+    if(scanf(" %29[^\n]", artita_ingresado) != 1) /** [^\n] esto sirve que pueda leer el espacio */
+    {
+        return;
+    }
     for(int i = 0; i < n_discos; i++)
     {
         if(strcmp(discos[i].artista, artita_ingresado) == 0)
@@ -400,7 +411,7 @@ void buscar_por_genero(discos_ discos[MAX_DISCOS], int n_discos)
         }
     }
     
-   printf("Generos disponibles:\n");
+    printf("Generos disponibles:\n");
     printf("Pop: %d\n", pop);
     printf("Electronica: %d\n", electronica);
     printf("Jazz: %d\n", jazz);
@@ -413,8 +424,10 @@ void buscar_por_genero(discos_ discos[MAX_DISCOS], int n_discos)
     printf("Musica clasica: %d\n", musica_clasica);
     
     printf("\nEscriba el que desee buscar: ");
-    scanf(" %49[^\n]", seleccion); // El espacio al inicio omite espacios/Enter previos (IA)
-
+    if(scanf(" %49[^\n]", seleccion) != 1) // El espacio al inicio omite espacios/Enter previos (IA)
+    {
+        return;
+    }
     printf("====================================================================================================================================================\n");
     printf("|                                                            %-80s      |\n", seleccion);
     printf("====================================================================================================================================================\n");
@@ -548,7 +561,10 @@ void anhadir_fila_re(discos_ fila_re[MAX_FILA], discos_ discos[MAX_DISCOS], int 
     int id_buscar = 0;
     printf("Ingrese el ID de la cancion que desea anhadir a la fila de reproduccion \n");
     printf("ID: \n");
-    scanf("%d", &id_buscar);
+    if(scanf("%d", &id_buscar) != 1)
+    {
+        return;
+    }
 
     int id_catalogo = -1;
     for (int i = 0; i < n_discos; i++)
@@ -599,7 +615,10 @@ void quitar_fila_re(discos_ fila_re[MAX_FILA], int *n_fila)
     printf("1. Eliminar por posicion \n");
     printf("2. Eliminar por ID \n");
     printf("Seleccione su opcion: \n");
-    scanf("%d", &opcion);
+    if(scanf("%d", &opcion) != 1)
+    {
+        return;
+    }
 
     int pos_borrar = -1;
 
@@ -612,7 +631,10 @@ void quitar_fila_re(discos_ fila_re[MAX_FILA], int *n_fila)
             consultar_fila_re(fila_re, *n_fila);
 
             printf("Ingrese la posicion que desea eliminar: \n");
-            scanf("%d", &pos_elegida);
+            if(scanf("%d", &pos_elegida) != 1)
+            {
+                return;
+            }
 
             if (pos_elegida < 1 || pos_elegida > *n_fila)
             {
@@ -631,7 +653,10 @@ void quitar_fila_re(discos_ fila_re[MAX_FILA], int *n_fila)
             consultar_fila_re(fila_re, *n_fila);
 
             printf("Ingrese el ID de la cancion que desea eliminar: \n");
-            scanf("%d", &id_elegido);
+            if(scanf("%d", &id_elegido) != 1)
+            {
+                return;
+            }
 
             for (int i = 0; i < *n_fila; i++)
             {
@@ -678,7 +703,10 @@ void menu_fila_re(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_
     printf("4. Vaciar lista de reproduccion \n");
     //printf("5. Regresar menu principal \n"); DEPENDE DE LA INTERFAZ!!
     printf("Elija su opcion: \n");
-    scanf("%d", &opcion_fila_re);
+    if(scanf("%d", &opcion_fila_re) != 1)
+    {
+        return;
+    }
 
     switch (opcion_fila_re)
     {
