@@ -13,9 +13,6 @@ int main ()
     int n_discos = rand() % MAX_DISCOS + 1;
     int n_fila = 0;
 
-    printf("Ingrese la cantidad de discos que desea generar: ");
-    scanf("%d", &n_discos);
-
     init_discos(discos);
     generador_id(discos, n_discos);
     generador_titulo(discos, n_discos);
@@ -27,11 +24,9 @@ int main ()
     generador_n_reproducciones(discos, n_discos);
     fisher_yates(discos, n_discos);
 
-
     listar_artistas_disponibles(discos);
     print_discos(discos, n_discos);
-    busqueda(discos,n_discos);
-    menu_fila_re(discos, fila_re, &n_fila, n_discos);
+    menu(discos, fila_re, &n_fila, n_discos);
     Exportacion(discos,n_discos);
 
     liberar_memoria(discos);

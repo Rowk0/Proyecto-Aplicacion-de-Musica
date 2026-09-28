@@ -49,7 +49,7 @@ void Exportacion(discos_ discos[MAX_DISCOS], int n_discos);
 int busqueda_binaria_recursiva(discos_ discos[], int busqueda, int izquierda, int derecha);
 void buscar_artista(discos_ disco[], int n_discos);
 void ordenar_discos_por_id(discos_ discos[MAX_DISCOS], int n_discos);
-void busqueda(discos_ discos[MAX_DISCOS], int n_discos);
+void menu(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, int n_discos);
 void buscar_nombre(discos_ discos[], int n_discos);
 void fisher_yates(discos_ discos[MAX_DISCOS], int n_discos);
 void listar_artistas_disponibles(discos_ discos[MAX_DISCOS]);
@@ -60,6 +60,7 @@ void anhadir_fila_re(discos_ fila_re[MAX_FILA], discos_ discos[MAX_DISCOS], int 
 void quitar_fila_re(discos_ fila_re[MAX_FILA], int *n_fila);
 void vaciar_fila_re(int *n_fila);
 void menu_fila_re(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, int n_discos);
+void buscar_id(discos_ discos[MAX_DISCOS], int n_discos);
 
 
 #endif

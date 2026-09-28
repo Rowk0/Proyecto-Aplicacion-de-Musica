@@ -266,56 +266,72 @@ void ordenar_discos_por_id(discos_ discos[MAX_DISCOS], int n_discos) {
  * 
  * @param discos 
  */
-void busqueda(discos_ discos[MAX_DISCOS], int n_discos)
+void menu(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, int n_discos)
 {
-    ordenar_discos_por_id(discos, n_discos); /** esto sirve para que los ya se ordene automaticamente por id */
-    print_discos(discos, n_discos);
+    int seleccion = -1; /** menu de busqueda  */
 
-    int seleccion, busca; /** menu de busqueda  */
-    printf("==================================\n");
-    printf("|Busqueda de canciones           |\n");
-    printf("==================================\n");
-    printf("| 1- Busqueda por id             |\n");
-    printf("| 2- Busqueda por Nombre         |\n");
-    printf("| 3- Busqueda por Artista        |\n");
-    printf("| 4- Busqueda por Genero Musical |\n");
-    printf("==================================\n\n");
-    if(scanf("%d",&seleccion) != 1)
+    while (seleccion != 0)
     {
-        return;
-    }
-
-    if(seleccion == 1) 
-    {
-        printf("Selecciona la id del Thema\n");
-        if(scanf("%d",&busca) != 1)
+        printf("\n");
+        printf("==================================\n");
+        printf("|Busqueda de canciones           |\n");
+        printf("==================================\n");
+        printf("| 0- Salir del programa          |\n");
+        printf("| 1- Busqueda por id             |\n");
+        printf("| 2- Busqueda por Nombre         |\n");
+        printf("| 3- Busqueda por Artista        |\n");
+        printf("| 4- Busqueda por Genero Musical |\n");
+        printf("| 5- Fila de reproduccion        |\n");
+        printf("==================================\n\n");
+        if(scanf("%d",&seleccion) != 1)
         {
             return;
         }
 
-        int busqueda =busqueda_binaria_recursiva(discos, busca, 0, n_discos - 1);
-        if (busqueda != -1)
+        else if(seleccion == 1) 
         {
-            printf("\n\n| %-5d | %-33s | %-15s | \n", discos[busqueda].id, discos[busqueda].titulo, discos[busqueda].artista);
+            buscar_id(discos, n_discos);
         }
-        else
+        else if(seleccion == 2)
         {
-            printf("\nNo se a encontrado ninguna cancion con el ID %d\n", busca);
+            buscar_nombre(discos, n_discos);
+        } 
+        else if(seleccion == 3)
+        {
+            buscar_artista(discos, n_discos);
+        }
+        else if(seleccion == 4)
+        {
+            buscar_por_genero(discos, n_discos);
+        }
+        else if(seleccion == 5)
+        {
+            menu_fila_re(discos, fila_re, n_fila, n_discos);
         }
     }
-    else if(seleccion == 2)
+}
+
+void buscar_id(discos_ discos[MAX_DISCOS], int n_discos)
+{
+    int busca;
+
+    ordenar_discos_por_id(discos, n_discos); /** esto sirve para que los ya se ordene automaticamente por id */
+
+    printf("Selecciona la id del Thema\n");
+    if(scanf("%d",&busca) != 1)
     {
-        buscar_nombre(discos, n_discos);
-    } 
-    else if(seleccion == 3)
-    {
-        buscar_artista(discos, n_discos);
-    }
-    else if(seleccion == 4)
-    {
-        buscar_por_genero(discos, n_discos);
+        return;
     }
 
+    int busqueda =busqueda_binaria_recursiva(discos, busca, 0, n_discos - 1);
+    if (busqueda != -1)
+    {
+        printf("\n\n| %-5d | %-33s | %-15s | \n", discos[busqueda].id, discos[busqueda].titulo, discos[busqueda].artista);
+    }
+    else
+    {
+        printf("\nNo se a encontrado ninguna cancion con el ID %d\n", busca);
+    }
 }
 
 void buscar_nombre(discos_ discos[], int n_discos)
@@ -516,10 +532,6 @@ void Exportacion(discos_ discos[MAX_DISCOS], int n_discos)
 
     fclose(archivo_csv);
 }
-
-
-
-
 
 void liberar_memoria(discos_ discos[MAX_DISCOS])
 {
