@@ -62,6 +62,7 @@ void vaciar_fila_re(int *n_fila);
 void menu_fila_re(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, int n_discos);
 void buscar_id(discos_ discos[MAX_DISCOS], int n_discos);
 void reproducir_musica(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, int n_discos);
+void historial_musica(discos_ discos[MAX_DISCOS], int n_discos);
 
 
 #endif

@@ -272,6 +272,8 @@ void menu(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, in
 
     while (seleccion != 0)
     {
+        print_discos(discos, n_discos);
+
         printf("\n");
         printf("==================================\n");
         printf("|Busqueda de canciones           |\n");
@@ -312,10 +314,11 @@ void menu(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, in
         }
         else if(seleccion == 6)
         {
-            //Hace un historial de musica
+            historial_musica(discos, n_discos);
         }
         else if(seleccion == 7)
         {
+            //Hacer que al reproducir musica se añada en historial de musica
             reproducir_musica(discos, fila_re, n_fila, n_discos);
         }
     }
@@ -326,7 +329,17 @@ void reproducir_musica(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], in
     int pos_borrar = -1;
     int pos_elegida = 1;
 
-    /*Primero se borra la musica de la posicion 1 de la lista de reproduccion*/
+    /*Se aumenta en uno la cantidad de reproducciones en discos[MAX_DISCOS]*/
+    for (int i = 0; i < MAX_DISCOS; i++)
+    {
+        if (discos[i].id == fila_re[0].id)
+        {
+            discos[i].n_reproducciones++;
+            break;
+        }
+    }
+
+    /*Se borra la musica de la posicion 1 de la lista de reproduccion, codigo por cortesia de la Dani*/
 
     if (*n_fila == 0)
     {
@@ -347,8 +360,11 @@ void reproducir_musica(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], in
     (*n_fila)--;
 
     pos_borrar = pos_elegida - 1;
+}
 
-    /*Se aumenta en uno la cantidad de reproducciones en discos[MAX_DISCOS]*/
+void historial_musica(discos_ discos[MAX_DISCOS], int n_discos)
+{
+
 }
 
 void buscar_id(discos_ discos[MAX_DISCOS], int n_discos)

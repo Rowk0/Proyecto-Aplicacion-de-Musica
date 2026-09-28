@@ -25,7 +25,6 @@ int main ()
     fisher_yates(discos, n_discos);
 
     listar_artistas_disponibles(discos);
-    print_discos(discos, n_discos);
     menu(discos, fila_re, &n_fila, n_discos);
     Exportacion(discos,n_discos);
 
