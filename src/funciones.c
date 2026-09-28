@@ -282,6 +282,8 @@ void menu(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, in
         printf("| 3- Busqueda por Artista        |\n");
         printf("| 4- Busqueda por Genero Musical |\n");
         printf("| 5- Fila de reproduccion        |\n");
+        printf("| 6- historial de reproduccion   |\n");
+        printf("| 7- Reproducir musica           |\n");
         printf("==================================\n\n");
         if(scanf("%d",&seleccion) != 1)
         {
@@ -307,6 +309,14 @@ void menu(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, in
         else if(seleccion == 5)
         {
             menu_fila_re(discos, fila_re, n_fila, n_discos);
+        }
+        else if(seleccion == 6)
+        {
+            
+        }
+        else if(seleccion == 7)
+        {
+            
         }
     }
 }
@@ -533,6 +543,11 @@ void Exportacion(discos_ discos[MAX_DISCOS], int n_discos)
     fclose(archivo_csv);
 }
 
+/**
+ * @brief Funcion liberacion de memoria de punteros por Franco
+ * 
+ * @param discos discos a liberar
+ */
 void liberar_memoria(discos_ discos[MAX_DISCOS])
 {
     for (int i = 0; i < MAX_DISCOS; i++)
@@ -708,12 +723,16 @@ void menu_fila_re(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_
 {
     int opcion_fila_re = 0;
 
-    printf("---- MENU FILA DE REPRODUCCION ---- \n");
-    printf("1. Consultar fila de reproduccion \n");
-    printf("2. Anhadir cancion \n");
-    printf("3. Quitar cancion \n");
-    printf("4. Vaciar lista de reproduccion \n");
-    //printf("5. Regresar menu principal \n"); DEPENDE DE LA INTERFAZ!!
+    printf("\n");
+    printf("=======================================\n");
+    printf("|Menu fila de reproduccion            |\n");
+    printf("=======================================\n");
+    printf("| 0- Volver al menu                   |\n");
+    printf("| 1- Consultar fila de reproduccion   |\n");
+    printf("| 2- Anhadir canccion                 |\n");
+    printf("| 3- Quitar cancion                   |\n");
+    printf("| 4- Vaciar lista de reproduccion     |\n");
+    printf("=======================================\n\n");
     printf("Elija su opcion: \n");
     if(scanf("%d", &opcion_fila_re) != 1)
     {
@@ -722,6 +741,8 @@ void menu_fila_re(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_
 
     switch (opcion_fila_re)
     {
+    case 0:
+        break;
     case 1:
         consultar_fila_re(fila_re, *n_fila);
         break;
