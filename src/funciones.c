@@ -316,9 +316,39 @@ void menu(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, in
         }
         else if(seleccion == 7)
         {
-            
+            reproducir_musica(discos, fila_re, n_fila, n_discos);
         }
     }
+}
+
+void reproducir_musica(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, int n_discos)
+{
+    int pos_borrar = -1;
+    int pos_elegida = 1;
+
+    /*Primero se borra la musica de la posicion 1 de la lista de reproduccion*/
+
+    if (*n_fila == 0)
+    {
+        printf("La lista de reproduccion esta vacia \n");
+        return;
+    }
+
+    if (pos_elegida < 1 || pos_elegida > *n_fila)
+    {
+        printf("Esta posicion no existe/fuera de rango\n");
+        return;
+    }
+
+    for (int i = pos_borrar; i < *n_fila-1 ; i++)
+    {
+        fila_re[i] = fila_re[i+1];
+    }
+    (*n_fila)--;
+
+    pos_borrar = pos_elegida - 1;
+
+    /*Se aumenta en uno la cantidad de reproducciones en discos[MAX_DISCOS]*/
 }
 
 void buscar_id(discos_ discos[MAX_DISCOS], int n_discos)
