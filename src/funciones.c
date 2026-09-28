@@ -312,7 +312,7 @@ void menu(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, in
         }
         else if(seleccion == 6)
         {
-            
+            //Hace un historial de musica
         }
         else if(seleccion == 7)
         {
