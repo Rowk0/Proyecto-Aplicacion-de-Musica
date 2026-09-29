@@ -377,12 +377,12 @@ void historial_musica(discos_ fila_hi[MAX_FILA], discos_ fila_re[MAX_FILA], int 
     fila_hi[0] = fila_re[0];
     (*n_historial)++;
     
-    printf("ESTE NUMERO ES(tercero): %d\n", *n_historial);
     printf("===========================================================================================\n");
     printf("|                             REPRODUCCIENDO CANCION                                      |\n");
     printf("===========================================================================================\n");
     printf("| %-5d | %-30s | %-15s | %-20s |\n", fila_hi[0].id, fila_hi[0].titulo, fila_hi[0].artista, fila_hi[0].album);
     printf("===========================================================================================\n");
+    printf("\n");
 
 }
 
