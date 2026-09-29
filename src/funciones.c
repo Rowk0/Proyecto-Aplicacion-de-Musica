@@ -315,12 +315,12 @@ void menu(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, in
         else if(seleccion == 7)
         {
             //Hacer que al reproducir musica se añada en historial de musica
-            reproducir_musica(discos, fila_re, n_fila, n_discos, fila_hi, n_historial);
+            reproducir_musica(discos, fila_re, n_fila, fila_hi, &n_historial);
         }
     }
 }
 
-void reproducir_musica(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, int n_discos, discos_ fila_hi[MAX_FILA], int n_historial)
+void reproducir_musica(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, discos_ fila_hi[MAX_FILA], int *n_historial)
 {
     int pos_borrar = -1;
 
@@ -365,21 +365,31 @@ void reproducir_musica(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], in
     }
     (*n_fila)--;
 
-
 }
 
-void historial_musica(discos_ fila_hi[MAX_FILA], discos_ fila_re[MAX_FILA], int n_historial)
+void historial_musica(discos_ fila_hi[MAX_FILA], discos_ fila_re[MAX_FILA], int *n_historial)
 {
-    //NO FUNCIONA
 
-    fila_hi[n_historial] = fila_re[0];
-    n_historial++;
+    for (int i = *n_historial; i > 0; i--)
+    {
+        fila_hi[i] = fila_hi[i-1];
+    }
+    fila_hi[0] = fila_re[0];
+    (*n_historial)++;
+    
+    printf("ESTE NUMERO ES(tercero): %d\n", *n_historial);
+    printf("===========================================================================================\n");
+    printf("|                             REPRODUCCIENDO CANCION                                      |\n");
+    printf("===========================================================================================\n");
+    printf("| %-5d | %-30s | %-15s | %-20s |\n", fila_hi[0].id, fila_hi[0].titulo, fila_hi[0].artista, fila_hi[0].album);
+    printf("===========================================================================================\n");
+
 }
 
 void print_fila_historial(discos_ fila_hi[MAX_FILA], int n_historial)
 {
     //NO SE COMO HACER ESTO
-
+   
     printf("===========================================================================================\n");
     printf("|                             HISTORIAL                                                   |\n");
     printf("===========================================================================================\n");
