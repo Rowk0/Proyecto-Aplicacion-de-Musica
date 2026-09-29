@@ -9,9 +9,11 @@ int main ()
 
     discos_ discos[MAX_DISCOS];
     discos_ fila_re[MAX_FILA];
+    discos_ fila_hi[MAX_FILA];
 
     int n_discos = rand() % MAX_DISCOS + 1;
     int n_fila = 0;
+    int n_historial = 0;
 
     init_discos(discos);
     generador_id(discos, n_discos);
@@ -25,7 +27,7 @@ int main ()
     fisher_yates(discos, n_discos);
 
     listar_artistas_disponibles(discos);
-    menu(discos, fila_re, &n_fila, n_discos);
+    menu(discos, fila_re, &n_fila, n_discos, fila_hi, n_historial);
     Exportacion(discos,n_discos);
 
     liberar_memoria(discos);
