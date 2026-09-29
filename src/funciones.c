@@ -611,16 +611,17 @@ void consultar_fila_re(discos_ fila_re[MAX_FILA],int n_fila)
         return;
     }
     
-    printf("====================================================================================================================================================\n");
-    printf("|                                                       FILA DE REPRODUCCION                                                                       |\n");
-    printf("====================================================================================================================================================\n");
+    printf("===========================================================================================\n");
+    printf("|                             FILA DE REPRODUCCION                                        |\n");
+    printf("===========================================================================================\n");
     printf("| %-5s | %-5s | %-30s | %-15s | %-20s |\n","POS","ID","TITULO","ARTISTA","ALBUM");
-    printf("====================================================================================================================================================\n");
+    printf("===========================================================================================\n");
     for (int i = 0; i < n_fila; i++)
     {
         printf("| %-5d | %-5d | %-30s | %-15s | %-20s|\n", i+1, fila_re[i].id, fila_re[i].titulo, fila_re[i].artista, fila_re[i].album);
     }
-    printf("====================================================================================================================================================\n");
+    printf("===========================================================================================\n");
+
 }
 
 void anhadir_fila_re(discos_ fila_re[MAX_FILA], discos_ discos[MAX_DISCOS], int *n_fila, int n_discos)
@@ -633,7 +634,7 @@ void anhadir_fila_re(discos_ fila_re[MAX_FILA], discos_ discos[MAX_DISCOS], int 
     
     int id_buscar = 0;
     printf("Ingrese el ID de la cancion que desea anhadir a la fila de reproduccion \n");
-    printf("ID: \n");
+    printf("ID: ");
     if(scanf("%d", &id_buscar) != 1)
     {
         return;
@@ -660,7 +661,7 @@ void anhadir_fila_re(discos_ fila_re[MAX_FILA], discos_ discos[MAX_DISCOS], int 
         if (fila_re[i].id == id_buscar)
         {
             printf("Esta cancion ya se encuentra en la lista de reproduccion \n");
-            break;
+            return;
         }
     }
     
@@ -672,7 +673,7 @@ void anhadir_fila_re(discos_ fila_re[MAX_FILA], discos_ discos[MAX_DISCOS], int 
     fila_re[0] = discos[id_catalogo]; //insertar en la posicion 0
     (*n_fila)++;
 
-    printf("SE ANHADIO A LA FILA DE REPRODUCCION");
+    printf("SE ANHADIO A LA FILA DE REPRODUCCION\n");
 }
 
 void quitar_fila_re(discos_ fila_re[MAX_FILA], int *n_fila)
@@ -687,7 +688,7 @@ void quitar_fila_re(discos_ fila_re[MAX_FILA], int *n_fila)
     printf("--- Eliminar de la fila ---\n");
     printf("1. Eliminar por posicion \n");
     printf("2. Eliminar por ID \n");
-    printf("Seleccione su opcion: \n");
+    printf("Seleccione su opcion: ");
     if(scanf("%d", &opcion) != 1)
     {
         return;
@@ -767,42 +768,45 @@ void vaciar_fila_re(int *n_fila)
 
 void menu_fila_re(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, int n_discos)
 {
-    int opcion_fila_re = 0;
+    int opcion_fila_re = -1;
 
-    printf("\n");
-    printf("=======================================\n");
-    printf("|Menu fila de reproduccion            |\n");
-    printf("=======================================\n");
-    printf("| 0- Volver al menu                   |\n");
-    printf("| 1- Consultar fila de reproduccion   |\n");
-    printf("| 2- Anhadir canccion                 |\n");
-    printf("| 3- Quitar cancion                   |\n");
-    printf("| 4- Vaciar lista de reproduccion     |\n");
-    printf("=======================================\n\n");
-    printf("Elija su opcion: \n");
-    if(scanf("%d", &opcion_fila_re) != 1)
+    while (opcion_fila_re != 0)
     {
-        return;
-    }
+        printf("\n");
+        printf("=======================================\n");
+        printf("|Menu fila de reproduccion            |\n");
+        printf("=======================================\n");
+        printf("| 0- Volver al menu                   |\n");
+        printf("| 1- Consultar fila de reproduccion   |\n");
+        printf("| 2- Anhadir canccion                 |\n");
+        printf("| 3- Quitar cancion                   |\n");
+        printf("| 4- Vaciar lista de reproduccion     |\n");
+        printf("=======================================\n\n");
+        printf("Elija su opcion: ");
+        if(scanf("%d", &opcion_fila_re) != 1)
+        {
+            return;
+        }
 
-    switch (opcion_fila_re)
-    {
-    case 0:
-        break;
-    case 1:
-        consultar_fila_re(fila_re, *n_fila);
-        break;
-    case 2:
-        anhadir_fila_re(fila_re, discos, n_fila, n_discos);
-        break;
-    case 3:
-        quitar_fila_re(fila_re, n_fila);
-        break;
-    case 4:
-        vaciar_fila_re(n_fila);
-        break;
-    default:
-        printf("Opcion invalida\n");
-        break;
+        switch (opcion_fila_re)
+        {
+        case 0:
+            break;
+        case 1:
+            consultar_fila_re(fila_re, *n_fila);
+            break;
+        case 2:
+            anhadir_fila_re(fila_re, discos, n_fila, n_discos);
+            break;
+        case 3:
+            quitar_fila_re(fila_re, n_fila);
+            break;
+        case 4:
+            vaciar_fila_re(n_fila);
+            break;
+        default:
+            printf("Opcion invalida\n");
+            break;
+        }
     }
 }
