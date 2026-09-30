@@ -14,8 +14,8 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
-#define MAX_DISCOS 20
-#define MAX_FILA 20
+#define MAX_DISCOS 2
+#define MAX_FILA 2
 
 
 /**

@@ -424,26 +424,9 @@ int comparar_discos(discos_ discos_1, discos_ discos_2, int criterio)
 void menu(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, int n_discos, discos_ fila_hi[MAX_FILA], int *n_historial)
 {
     int seleccion = -1; /** menu de busqueda  */
-    printf("======================\n");
-    printf("|¿Cómo desea ordenar?|\n");
-    printf("======================\n");
-    printf("|1- ID               |\n");
-    printf("|2- Título           |\n"); 
-    printf("|3- Artista          |\n");
-    printf("|4- Álbum            |\n");
-    printf("|5- Género           |\n");
-    printf("|6- Año              |\n");
-    printf("|7- n_reproducciones |\n");
-    printf("======================\n");
-    if(scanf("%d", &seleccion) != 1)
-    {
-        return;
-    }
-    quick_sort(discos, 0, n_discos - 1, seleccion);
 
     while (seleccion != 0)
     {
-        print_discos(discos, n_discos);
         printf("\n");
         printf("==================================\n");
         printf("|Busqueda de canciones           |\n");
@@ -456,12 +439,14 @@ void menu(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, in
         printf("| 5- Fila de reproduccion        |\n");
         printf("| 6- Historial de reproduccion   |\n");
         printf("| 7- Reproducir musica           |\n");
+        printf("| 8- Ver musica disponible       |\n");
+        printf("| 9- Ranking                     |\n");
+        printf("| 10- Ordenar musica disponible  |\n");
         printf("==================================\n\n");
         if(scanf("%d",&seleccion) != 1)
         {
             return;
         }
-
         else if(seleccion == 1) 
         {
             buscar_id(discos, n_discos);
@@ -491,9 +476,34 @@ void menu(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, in
             //Hacer que al reproducir musica se añada en historial de musica
             reproducir_musica(discos, fila_re, n_fila, fila_hi, n_historial);
         }
+        else if (seleccion == 8)
+        {
+            print_discos(discos, n_discos);
+        }
+        else if (seleccion == 9)
+        {
+            ranking(discos,n_discos);
+        }
+        else if (seleccion == 10)
+        {
+            printf("======================\n");
+            printf("|¿Cómo desea ordenar?|\n");
+            printf("======================\n");
+            printf("|1- ID               |\n");
+            printf("|2- Título           |\n"); 
+            printf("|3- Artista          |\n");
+            printf("|4- Álbum            |\n");
+            printf("|5- Género           |\n");
+            printf("|6- Año              |\n");
+            printf("|7- n_reproducciones |\n");
+            printf("======================\n");
+            if(scanf("%d", &seleccion) != 1)
+            {
+                return;
+            }
+            quick_sort(discos, 0, n_discos - 1, seleccion);
+        }
     }
-    ranking(discos,n_discos);
-
 }
 
 void reproducir_musica(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, discos_ fila_hi[MAX_FILA], int *n_historial)
@@ -546,12 +556,22 @@ void reproducir_musica(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], in
 
 void historial_musica(discos_ fila_hi[MAX_FILA], discos_ fila_re[MAX_FILA], int *n_historial)
 {
-     for (int i = *n_historial; i > 0; i--)
+    if (*n_historial == MAX_DISCOS)
+    {
+        (*n_historial)--;
+    }
+
+    for (int i = *n_historial; i > 0; i--)
     {
         fila_hi[i] = fila_hi[i-1];
     }
+
     fila_hi[0] = fila_re[0];
-    (*n_historial)++;
+
+    if (*n_historial < MAX_DISCOS) 
+    {
+        (*n_historial)++;
+    }
     
     printf("ESTE NUMERO ES(tercero): %d\n", *n_historial);
     printf("===========================================================================================\n");
@@ -589,10 +609,15 @@ void buscar_id(discos_ discos[MAX_DISCOS], int n_discos)
         return;
     }
 
+
     int busqueda =busqueda_binaria_recursiva(discos, busca, 0, n_discos - 1);
     if (busqueda != -1)
     {
-        printf("\n\n| %-5d | %-33s | %-15s | \n", discos[busqueda].id, discos[busqueda].titulo, discos[busqueda].artista);
+        printf("====================================================================================================================================================\n");
+        printf("| %-5s | %-30s | %-15s | %-20s | %-15s | %-15s | %-5s | %-18s | \n","ID","TITULO","ARTISTA","ALBUM","GENERO","DURACION_SEG","ANHO","N_n_reproducciones");
+        printf("==================================================================================================================================================== \n");
+        printf("| %-5d | %-30s | %-15s | %-20s | %-15s | %-15d | %-5d | %-18d |\n",discos[busqueda].id, discos[busqueda].titulo, discos[busqueda].artista, discos[busqueda].album, discos[busqueda].genero, discos[busqueda].duracion_seg, discos[busqueda].anho, discos[busqueda].n_reproducciones);
+        printf("==================================================================================================================================================== \n");
     }
     else
     {
@@ -608,13 +633,18 @@ void buscar_nombre(discos_ discos[], int n_discos)
     {
         return;
     }
+
     for (int i = 0; i < n_discos; i++)
     {
         // Validación contra NULL y comparación exacta de cadenas
         if(strcmp(discos[i].titulo, nombre_ingresado) == 0)
         {
-            printf("Nombre encontrado");
+            printf("Nombre encontrado\n\n");
+            printf("====================================================================================================================================================\n");
+            printf("| %-5s | %-30s | %-15s | %-20s | %-15s | %-15s | %-5s | %-18s | \n","ID","TITULO","ARTISTA","ALBUM","GENERO","DURACION_SEG","ANHO","N_n_reproducciones");
+            printf("==================================================================================================================================================== \n");
             printf("| %-5d | %-30s | %-15s | %-20s | %-15s | %-15d | %-5d | %-18d |\n", discos[i].id, discos[i].titulo, discos[i].artista, discos[i].album, discos[i].genero, discos[i].duracion_seg, discos[i].anho, discos[i].n_reproducciones);
+            printf("==================================================================================================================================================== \n");
         }
     }
 }
@@ -628,20 +658,28 @@ void buscar_nombre(discos_ discos[], int n_discos)
 void buscar_artista(discos_ discos[], int n_discos)
 {
     char artita_ingresado[30];
-    printf("Ingrese el nombre exacto o parcial del artista: ");
+    printf("Ingrese el nombre exacto del artista: ");
     if(scanf(" %29[^\n]", artita_ingresado) != 1) /** [^\n] esto sirve que pueda leer el espacio */
     {
         return;
     }
+
+    printf("====================================================================================================================================================\n");
+    printf("|                                                            %-80s      |\n", artita_ingresado);
+    printf("====================================================================================================================================================\n");
+    printf("| %-5s | %-30s | %-15s | %-20s | %-15s | %-15s | %-5s | %-18s | \n","ID","TITULO","ARTISTA","ALBUM","GENERO","DURACION_SEG","ANHO","N_n_reproducciones");
+    printf("==================================================================================================================================================== \n");
+
     for(int i = 0; i < n_discos; i++)
     {
         if(strcmp(discos[i].artista, artita_ingresado) == 0)
         {
-            printf("%-5d | %-30s | %-15s | %-20s | %-15s | %-15d | %-5d | %-18d |\n",discos[i].id, discos[i].titulo, discos[i].artista, discos[i].album, discos[i].genero, discos[i].duracion_seg, discos[i].anho, discos[i].n_reproducciones);
+            printf("| %-5d | %-30s | %-15s | %-20s | %-15s | %-15d | %-5d | %-18d |\n",discos[i].id, discos[i].titulo, discos[i].artista, discos[i].album, discos[i].genero, discos[i].duracion_seg, discos[i].anho, discos[i].n_reproducciones);
         }
     }
-}
 
+    printf("====================================================================================================================================================\n");
+}
 
 void buscar_por_genero(discos_ discos[MAX_DISCOS], int n_discos)
 {
@@ -735,11 +773,11 @@ void buscar_por_genero(discos_ discos[MAX_DISCOS], int n_discos)
         }
     }
 
+    printf("==================================================================================================================================================== \n");
+
     printf("\nHay %d cancion/es del genero que eligio \n", cant_canciones_genero);
     
 }
-
-
 
 /**
  * @brief Busqueda binaria realizado por benjamin Hernandez
