@@ -444,7 +444,8 @@ void menu(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, in
         printf("==================================\n\n");
         if(scanf("%d",&seleccion) != 1)
         {
-            return;
+            while (seleccion = getchar() != '\n'); // Seleccion obtiene todos caracteres del buffer hasta que se encuentra un espacio
+            seleccion = -1;
         }
         else if(seleccion == 1) 
         {
@@ -498,7 +499,8 @@ void menu(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, in
             printf("======================\n");
             if(scanf("%d", &seleccion) != 1)
             {
-                return;
+                while (seleccion = getchar() != '\n');
+                seleccion = -1;
             }
             quick_sort(discos, 0, n_discos - 1, seleccion);
         }
@@ -607,7 +609,6 @@ void buscar_id(discos_ discos[MAX_DISCOS], int n_discos)
     {
         return;
     }
-
 
     int busqueda =busqueda_binaria_recursiva(discos, busca, 0, n_discos - 1);
     if (busqueda != -1)
