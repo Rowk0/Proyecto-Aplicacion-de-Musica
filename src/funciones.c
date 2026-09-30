@@ -66,7 +66,7 @@ void init_discos(discos_ discos[MAX_DISCOS])
 }
 
 /**
- * @brief funcion hecho por Daniela, asigna valor de id en el arreglo MAX_DISCOS
+ * @brief funcion hecho por Daniela, asigna valor de id en el discos MAX_DISCOS
  * 
  * @param discos 
  */
@@ -83,13 +83,13 @@ void generador_id(discos_ discos[MAX_DISCOS], int n_discos)
 /**
  * @brief Funcion por Franco 
  * 
- * @param discos representa los discos a editar
+ * @param discos representa los discos discos_1 editar
  */
 void generador_titulo(discos_ discos[MAX_DISCOS], int n_discos)
 {
-    char *adverbio[] = {"Aqui", "Pronto", "Jamas", "Acaso", "deprisa"};
+    char *adverbio[] = {"Aqui", "Pronto", "Jamas", "Acaso", "Deprisa"};
     char *sustantivo[] = {"Pan", "Canada", "Edgardo", "Bordoli", "Torre"};
-    char *adjetivo [] = {"sangriento", "estancado", "montanhista", "terrorista", "desgraciado"};
+    char *adjetivo [] = {"Sangriento", "Estancado", "Montanhista", "terrorista", "Desgraciado"};
 
     int aux = 0, aux2 = 0, aux3 = 0;
 
@@ -210,7 +210,7 @@ void fisher_yates(discos_ discos[MAX_DISCOS], int n_discos)
 void print_discos(discos_ discos[MAX_DISCOS], int n_discos)
 {
     printf("====================================================================================================================================================\n");
-    printf("| %-5s | %-30s | %-15s | %-20s | %-15s | %-15s | %-5s | %-18s | \n","ID","TITULO","ARTISTA","ALBUM","GENERO","DURACION_SEG","ANHO","N_REPRODUCCIONES");
+    printf("| %-5s | %-30s | %-15s | %-20s | %-15s | %-15s | %-5s | %-18s | \n","ID","TITULO","ARTISTA","ALBUM","GENERO","DURACION_SEG","ANHO","N_n_reproducciones");
     printf("==================================================================================================================================================== \n");
 
     for (int i = 0; i < n_discos; i++)
@@ -228,6 +228,86 @@ void print_discos(discos_ discos[MAX_DISCOS], int n_discos)
     printf("====================================================================================================================================================\n\n");
 }
 
+void ranking(discos_ discos[], int n_discos)
+{
+    for (int i = 0; i < n_discos - 1; i++)
+    {
+        for (int j = 0; j < n_discos - i - 1; j++)
+        {
+            if (discos[j].n_reproducciones < discos[j + 1].n_reproducciones)
+            {
+                discos_ temp = discos[j];
+                discos[j] = discos[j + 1];
+                discos[j + 1] = temp;
+            }
+        }
+    }
+    printf("==========================================\n");
+    printf("|     Top 5 canciones mas escuchada      |\n");
+    printf("==========================================\n");
+    for(int i = 0; i < 5; i++)
+    {
+        printf("|%d- %27s %7d |\n",i + 1, discos[i].titulo, discos[i].n_reproducciones);
+    }
+    printf("==========================================\n\n");
+    
+    char *genero[] = {"Pop", "Electronica", "Jazz", "Country", "Hyper Pop", "Dubstep", "DnB", "Indie Rock", "Soundtrack", "Musica clasica"};
+    
+    printf("======================================\n");
+    printf("|  Cancion mas escuchada por genero  |\n");
+
+    for(int i = 0; i < 10; i++)
+    {
+        cancion_mas_escuchada(discos, n_discos, genero[i]);
+    }
+    printf("======================================\n");
+}
+
+/**
+ * @brief Funcion realizada por Benjamin Hernandez
+ * 
+ * @param discos 
+ * @param n_discos 
+ * @param genero
+ */
+void cancion_mas_escuchada(discos_ discos[], int n_discos, char genero[]) /**<se ha utilizado Insertion Sort>*/
+{
+    discos_ seleccionados[MAX_DISCOS];
+    int cantidad = 0;
+
+    for (int i = 0; i < n_discos; i++)
+    {
+        if (strcmp(discos[i].genero, genero) == 0)
+        {
+            seleccionados[cantidad] = discos[i];
+            cantidad++;
+        }
+    }
+
+    for (int i = 1; i < cantidad; i++) // Insertion Sort
+    {
+        discos_ clave = seleccionados[i];
+        int j = i - 1;
+
+        for (; j >= 0 &&
+               seleccionados[j].n_reproducciones < clave.n_reproducciones;
+             j--)
+        {
+            seleccionados[j + 1] = seleccionados[j];
+        }
+
+        seleccionados[j + 1] = clave;
+    }
+
+    if (cantidad > 0)
+    {
+        printf("======================================\n");
+        printf("|Genero:    %25s|\n", seleccionados[0].genero);
+        printf("|Cancion: %27s|\n", seleccionados[0].titulo);
+        printf("|Reproducciones: %20d|\n",seleccionados[0].n_reproducciones);
+    }
+}
+
 /**
  * @brief Fucion echo por benjamin hernandez 
  * 
@@ -241,7 +321,7 @@ void ordenar_discos_por_id(discos_ discos[MAX_DISCOS], int n_discos) {
         swapped = 0;
         for (int j = 0; j < n_discos - i - 1; j++) 
         {
-            if (discos[j].id > discos[j + 1].id) // Ordenamiento de menor a mayor por ID
+            if (discos[j].id > discos[j + 1].id) // Ordenamiento de menor discos_1 mayor por ID
             {
                 discos_ temp = discos[j];
                 discos[j] = discos[j + 1];
@@ -256,7 +336,86 @@ void ordenar_discos_por_id(discos_ discos[MAX_DISCOS], int n_discos) {
     }
 }
 
+/**
+ * @brief  Hecho por benjamin  Hernandez
+ * 
+ * @param discos 
+ * @param izquierda 
+ * @param derecha 
+ * @param criterio 
+ */
+void quick_sort(discos_ discos[], int izquierda, int derecha, int criterio)
+{
+    int i = izquierda;
+    int j = derecha;
+    discos_ pivote = discos[(izquierda + derecha) / 2];
+    discos_ aux;
+    while (i <= j)
+    {
+        while (comparar_discos(discos[i], pivote, criterio) < 0)
+        {    
+            i++;
+        }
+        while (comparar_discos(discos[j], pivote, criterio) > 0)
+        {
+            j--;
+        }
+        if (i <= j)
+        {
+            aux = discos[i];
+            discos[i] = discos[j];
+            discos[j] = aux;
+            i++;
+            j--;
+        }
+    }
+    if (izquierda < j)
+    { 
+        quick_sort(discos, izquierda, j, criterio);
+    }
+    if (i < derecha)
+    {
+        quick_sort(discos, i, derecha, criterio);
+    }
+}
 
+/**
+ * @brief Funcion Hecha por Benjamin Hernandez
+ * 
+ * @param discos_1 
+ * @param discos_2 
+ * @param criterio 
+ * @return int 
+ */
+int comparar_discos(discos_ discos_1, discos_ discos_2, int criterio)
+{
+    switch (criterio)
+    {
+        case 1: // ID
+            return discos_1.id - discos_2.id;
+
+        case 2: // Título
+            return strcmp(discos_1.titulo, discos_2.titulo);
+
+        case 3: // Artista
+            return strcmp(discos_1.artista, discos_2.artista);
+
+        case 4: // Álbum
+            return strcmp(discos_1.album, discos_2.album);
+
+        case 5: // Género
+            return strcmp(discos_1.genero, discos_2.genero);
+
+        case 6: // Año
+            return discos_1.anho - discos_2.anho;
+
+        case 7: // Numero de n_reproducciones
+            return discos_1.n_reproducciones - discos_2.n_reproducciones;
+
+        default:
+            return 0;
+    }
+}
 /**
  * @brief Funcion realizado por benjamin Hernandez
  * 
@@ -265,11 +424,26 @@ void ordenar_discos_por_id(discos_ discos[MAX_DISCOS], int n_discos) {
 void menu(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, int n_discos, discos_ fila_hi[MAX_FILA], int n_historial)
 {
     int seleccion = -1; /** menu de busqueda  */
+    printf("======================\n");
+    printf("|¿Cómo desea ordenar?|\n");
+    printf("======================\n");
+    printf("|1- ID               |\n");
+    printf("|2- Título           |\n"); 
+    printf("|3- Artista          |\n");
+    printf("|4- Álbum            |\n");
+    printf("|5- Género           |\n");
+    printf("|6- Año              |\n");
+    printf("|7- n_reproducciones |\n");
+    printf("======================\n");
+    if(scanf("%d", &seleccion) != 1)
+    {
+        return;
+    }
+    quick_sort(discos, 0, n_discos - 1, seleccion);
 
     while (seleccion != 0)
     {
         print_discos(discos, n_discos);
-
         printf("\n");
         printf("==================================\n");
         printf("|Busqueda de canciones           |\n");
@@ -280,7 +454,7 @@ void menu(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, in
         printf("| 3- Busqueda por Artista        |\n");
         printf("| 4- Busqueda por Genero Musical |\n");
         printf("| 5- Fila de reproduccion        |\n");
-        printf("| 6- historial de reproduccion   |\n");
+        printf("| 6- Historial de reproduccion   |\n");
         printf("| 7- Reproducir musica           |\n");
         printf("==================================\n\n");
         if(scanf("%d",&seleccion) != 1)
@@ -315,12 +489,14 @@ void menu(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, in
         else if(seleccion == 7)
         {
             //Hacer que al reproducir musica se añada en historial de musica
-            reproducir_musica(discos, fila_re, n_fila, fila_hi, &n_historial);
+            reproducir_musica(discos, fila_re, n_fila, fila_hi, n_historial);
         }
     }
+    ranking(discos,n_discos);
+
 }
 
-void reproducir_musica(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, discos_ fila_hi[MAX_FILA], int *n_historial)
+void reproducir_musica(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, discos_ fila_hi[MAX_FILA], int n_historial)
 {
     int pos_borrar = -1;
 
@@ -332,7 +508,7 @@ void reproducir_musica(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], in
         return;
     }
 
-    /*Se aumenta en uno la cantidad de reproducciones en discos[MAX_DISCOS]*/
+    /*Se aumenta en uno la cantidad de n_reproducciones en discos[MAX_DISCOS]*/
     
     for (int i = 0; i < MAX_DISCOS; i++)
     {
@@ -365,31 +541,21 @@ void reproducir_musica(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], in
     }
     (*n_fila)--;
 
+
 }
 
-void historial_musica(discos_ fila_hi[MAX_FILA], discos_ fila_re[MAX_FILA], int *n_historial)
+void historial_musica(discos_ fila_hi[MAX_FILA], discos_ fila_re[MAX_FILA], int n_historial)
 {
+    //NO FUNCIONA
 
-    for (int i = *n_historial; i > 0; i--)
-    {
-        fila_hi[i] = fila_hi[i-1];
-    }
-    fila_hi[0] = fila_re[0];
-    (*n_historial)++;
-    
-    printf("===========================================================================================\n");
-    printf("|                             REPRODUCCIENDO CANCION                                      |\n");
-    printf("===========================================================================================\n");
-    printf("| %-5d | %-30s | %-15s | %-20s |\n", fila_hi[0].id, fila_hi[0].titulo, fila_hi[0].artista, fila_hi[0].album);
-    printf("===========================================================================================\n");
-    printf("\n");
-
+    fila_hi[n_historial] = fila_re[0];
+    n_historial++;
 }
 
 void print_fila_historial(discos_ fila_hi[MAX_FILA], int n_historial)
 {
     //NO SE COMO HACER ESTO
-   
+
     printf("===========================================================================================\n");
     printf("|                             HISTORIAL                                                   |\n");
     printf("===========================================================================================\n");
@@ -421,7 +587,7 @@ void buscar_id(discos_ discos[MAX_DISCOS], int n_discos)
     }
     else
     {
-        printf("\nNo se a encontrado ninguna cancion con el ID %d\n", busca);
+        printf("\nNo se discos_1 encontrado ninguna cancion con el ID %d\n", busca);
     }
 }
 
@@ -538,7 +704,7 @@ void buscar_por_genero(discos_ discos[MAX_DISCOS], int n_discos)
     printf("====================================================================================================================================================\n");
     printf("|                                                            %-80s      |\n", seleccion);
     printf("====================================================================================================================================================\n");
-    printf("| %-5s | %-30s | %-15s | %-20s | %-15s | %-15s | %-5s | %-18s | \n","ID","TITULO","ARTISTA","ALBUM","GENERO","DURACION_SEG","ANHO","N_REPRODUCCIONES");
+    printf("| %-5s | %-30s | %-15s | %-20s | %-15s | %-15s | %-5s | %-18s | \n","ID","TITULO","ARTISTA","ALBUM","GENERO","DURACION_SEG","ANHO","N_n_reproducciones");
     printf("==================================================================================================================================================== \n");
 
 
@@ -627,7 +793,7 @@ void Exportacion(discos_ discos[MAX_DISCOS], int n_discos)
 /**
  * @brief Funcion liberacion de memoria de punteros por Franco
  * 
- * @param discos discos a liberar
+ * @param discos discos discos_1 liberar
  */
 void liberar_memoria(discos_ discos[MAX_DISCOS])
 {
@@ -668,7 +834,7 @@ void anhadir_fila_re(discos_ fila_re[MAX_FILA], discos_ discos[MAX_DISCOS], int 
     }
     
     int id_buscar = 0;
-    printf("Ingrese el ID de la cancion que desea anhadir a la fila de reproduccion \n");
+    printf("Ingrese el ID de la cancion que desea anhadir discos_1 la fila de reproduccion \n");
     printf("ID: ");
     if(scanf("%d", &id_buscar) != 1)
     {
