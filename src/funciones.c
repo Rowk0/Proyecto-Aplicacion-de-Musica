@@ -7,7 +7,6 @@
  */
 #include "commons.h"
 
-
 void listar_artistas_disponibles(discos_ discos[MAX_DISCOS])
 {
     char *artistas_disponible[MAX_DISCOS];
@@ -43,9 +42,9 @@ void listar_artistas_disponibles(discos_ discos[MAX_DISCOS])
     printf("| %-30s |\n", "ARTISTAS DISPONIBLES"); 
     printf("================================== \n");
 
-    for (int i = 0; i < j; i++)
+    for (int l = 0; l < j; l++)
     {
-        printf("| %-30s |\n", artistas_disponible[i]); 
+        printf("| %-30s |\n", artistas_disponible[l]); 
     }
     printf("================================== \n\n");
 }
