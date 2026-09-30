@@ -421,7 +421,7 @@ int comparar_discos(discos_ discos_1, discos_ discos_2, int criterio)
  * 
  * @param discos 
  */
-void menu(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, int n_discos, discos_ fila_hi[MAX_FILA], int n_historial)
+void menu(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, int n_discos, discos_ fila_hi[MAX_FILA], int *n_historial)
 {
     int seleccion = -1; /** menu de busqueda  */
     printf("======================\n");
@@ -496,7 +496,7 @@ void menu(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, in
 
 }
 
-void reproducir_musica(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, discos_ fila_hi[MAX_FILA], int n_historial)
+void reproducir_musica(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, discos_ fila_hi[MAX_FILA], int *n_historial)
 {
     int pos_borrar = -1;
 
@@ -544,15 +544,24 @@ void reproducir_musica(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], in
 
 }
 
-void historial_musica(discos_ fila_hi[MAX_FILA], discos_ fila_re[MAX_FILA], int n_historial)
+void historial_musica(discos_ fila_hi[MAX_FILA], discos_ fila_re[MAX_FILA], int *n_historial)
 {
-    //NO FUNCIONA
-
-    fila_hi[n_historial] = fila_re[0];
-    n_historial++;
+     for (int i = *n_historial; i > 0; i--)
+    {
+        fila_hi[i] = fila_hi[i-1];
+    }
+    fila_hi[0] = fila_re[0];
+    (*n_historial)++;
+    
+    printf("ESTE NUMERO ES(tercero): %d\n", *n_historial);
+    printf("===========================================================================================\n");
+    printf("|                             REPRODUCCIENDO CANCION                                      |\n");
+    printf("===========================================================================================\n");
+    printf("| %-5d | %-30s | %-15s | %-20s |\n", fila_hi[0].id, fila_hi[0].titulo, fila_hi[0].artista, fila_hi[0].album);
+    printf("===========================================================================================\n");
 }
 
-void print_fila_historial(discos_ fila_hi[MAX_FILA], int n_historial)
+void print_fila_historial(discos_ fila_hi[MAX_FILA], int *n_historial)
 {
     //NO SE COMO HACER ESTO
 
@@ -561,7 +570,7 @@ void print_fila_historial(discos_ fila_hi[MAX_FILA], int n_historial)
     printf("===========================================================================================\n");
     printf("| %-5s | %-30s | %-15s | %-20s |\n","ID","TITULO","ARTISTA","ALBUM");
     printf("===========================================================================================\n");
-    for (int i = 0; i < n_historial; i++)
+    for (int i = 0; i < *n_historial; i++)
     {
         printf("| %-5d | %-30s | %-15s | %-20s|\n", fila_hi[i].id, fila_hi[i].titulo, fila_hi[i].artista, fila_hi[i].album);
     }
