@@ -7,6 +7,11 @@
  */
 #include "commons.h"
 
+/**
+ * @brief funcion por Franco
+ * 
+ * @param discos 
+ */
 void listar_artistas_disponibles(discos_ discos[MAX_DISCOS])
 {
     char *artistas_disponible[MAX_DISCOS];
@@ -49,6 +54,11 @@ void listar_artistas_disponibles(discos_ discos[MAX_DISCOS])
     printf("================================== \n\n");
 }
 
+/**
+ * @brief funcion por Franco
+ * 
+ * @param discos 
+ */
 void init_discos(discos_ discos[MAX_DISCOS])
 {
     for (int i = 0; i < MAX_DISCOS; i++)
@@ -105,6 +115,12 @@ void generador_titulo(discos_ discos[MAX_DISCOS], int n_discos)
     }
 }
 
+/**
+ * @brief funcion por Daniela
+ * 
+ * @param discos 
+ * @param n_discos 
+ */
 void generador_artista(discos_ discos[MAX_DISCOS], int n_discos)
 {
     char *artista[] = {"Jere Klein", "Bad Bunny", "Cris MJ", "Kidd Voodoo", "Feid", "Karol G", "Lucky Brown", "Anuel AA", "Katteyes", "Blessd"};

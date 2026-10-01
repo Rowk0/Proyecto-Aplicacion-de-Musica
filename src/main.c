@@ -16,6 +16,7 @@ int main ()
     init_discos(discos);
 
     int n_discos = Inportacion(discos);
+    
     if(n_discos == 0)
     {
         n_discos = rand() % MAX_DISCOS + 1;
@@ -32,6 +33,7 @@ int main ()
     }
 
     listar_artistas_disponibles(discos);
+
     menu(discos, fila_re, &n_fila, n_discos, fila_hi, &n_historial);
     
     Exportacion(discos, n_discos);
