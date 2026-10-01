@@ -546,12 +546,13 @@ void menu(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, in
             {
                 int c;
                 while ((c = getchar()) != '\n' && c != EOF); 
-                criterio = -1;       
+                criterio = -1;    
             }
             else
             {
                 quick_sort(discos, 0, n_discos - 1, criterio);
                 printf("\nCatálogo ordenado correctamente.\n");
+                print_discos(discos, n_discos);   
             }
         }
     }
@@ -914,11 +915,13 @@ int Inportacion(discos_ discos[MAX_DISCOS])
     }
     char linea[256];
     int count = 0;
-    if(fgets(linea, sizeof(linea), archivo_csv) != NULL)
+
+    if(fgets(linea, sizeof(linea), archivo_csv) == NULL)
     {
         fclose(archivo_csv);
         return 0;
     }
+
     while(fgets(linea, sizeof(linea), archivo_csv) != NULL && count < MAX_DISCOS)
     {
         discos[count].titulo = malloc(100 * sizeof(char));
