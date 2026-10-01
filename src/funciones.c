@@ -13,15 +13,15 @@ void listar_artistas_disponibles(discos_ discos[MAX_DISCOS])
     int seEncontró = 0;
     int j = 0;
 
-    for (int i = 0; i < MAX_DISCOS; i++)
+    for(int i = 0; i < MAX_DISCOS; i++)
     {
         seEncontró = 0;
 
-        if (discos[i].artista != NULL) 
+        if(discos[i].artista != NULL) 
         {   
             for (int k = 0; k < j; k++)
             {
-                if (strcmp(artistas_disponible[k], discos[i].artista) == 0)
+                if(strcmp(artistas_disponible[k], discos[i].artista) == 0)
                 {
                     seEncontró = 1;
                     break;
@@ -485,7 +485,7 @@ void menu(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, in
         printf("| 9- Ranking                     |\n");
         printf("| 10- Ordenar musica disponible  |\n");
         printf("==================================\n\n");
-        if (scanf("%d", &seleccion) != 1)
+        if(scanf("%d", &seleccion) != 1)
         {
             int c;
             while((c = getchar()) != '\n' && c != EOF); // Se asigna a c y se limpia el buffer
@@ -542,7 +542,7 @@ void menu(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, in
             printf("|6- Año              |\n");
             printf("|7- n_reproducciones |\n");
             printf("======================\n");
-            if (scanf("%d", &criterio) != 1)
+            if(scanf("%d", &criterio) != 1)
             {
                 int c;
                 while ((c = getchar()) != '\n' && c != EOF); 
@@ -908,17 +908,18 @@ void Exportacion(discos_ discos[MAX_DISCOS], int n_discos)
 int Inportacion(discos_ discos[MAX_DISCOS])
 {
     FILE *archivo_csv = fopen("CSV/Catalogo.csv", "r");
-    if (archivo_csv == NULL)
+    if(archivo_csv == NULL)
     {
         return 0; // El archivo no existe aún
     }
-
     char linea[256];
     int count = 0;
-    if (fgets(linea, sizeof(linea), archivo_csv) != NULL)
+    if(fgets(linea, sizeof(linea), archivo_csv) != NULL)
     {
+        fclose(archivo_csv);
+        return 0;
     }
-    while (fgets(linea, sizeof(linea), archivo_csv) != NULL && count < MAX_DISCOS)
+    while(fgets(linea, sizeof(linea), archivo_csv) != NULL && count < MAX_DISCOS)
     {
         discos[count].titulo = malloc(100 * sizeof(char));
         discos[count].album = malloc(100 * sizeof(char));
@@ -1051,8 +1052,10 @@ void quitar_fila_re(discos_ fila_re[MAX_FILA], int *n_fila)
     printf("1. Eliminar por posicion \n");
     printf("2. Eliminar por ID \n");
     printf("Seleccione su opcion: ");
-    if(scanf("%d", &opcion) != 1)
+    if (scanf("%d", &opcion) != 1) 
     {
+        int c;
+        while ((c = getchar()) != '\n' && c != EOF);
         return;
     }
 
@@ -1072,7 +1075,7 @@ void quitar_fila_re(discos_ fila_re[MAX_FILA], int *n_fila)
                 return;
             }
 
-            if (pos_elegida < 1 || pos_elegida > *n_fila)
+            if(pos_elegida < 1 || pos_elegida > *n_fila)
             {
                 printf("Esta posicion no existe/fuera de rango\n");
                 return;
