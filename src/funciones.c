@@ -556,13 +556,13 @@ int comparar_discos(discos_ discos_1, discos_ discos_2, int criterio)
 
 /**
  * @brief 
+ * menu principal de la operacion
  * 
- * @param discos 
- * @param fila_re 
- * @param n_fila 
- * @param n_discos 
- * @param fila_hi 
- * @param n_historial 
+ * @param discos Arreglo principal que contiene todas las canciones del catalogo.
+ * @param fila_re Arreglo que representa la fila de reproduccion de canciones.
+ * @param n_fila Puntero que almacena la cantidad actual de canciones en la fila de reproduccion.
+ * @param fila_hi Arreglo que contiene el historial de canciones reproducidas.
+ * @param n_historial Puntero que almacena la cantidad actual de canciones en el historial.
  */
 void menu(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, int n_discos, discos_ fila_hi[MAX_FILA], int *n_historial)
 {
@@ -759,6 +759,7 @@ void historial_musica(discos_ fila_hi[MAX_FILA], discos_ fila_re[MAX_FILA], int 
 
 /**
  * @brief Funcion por Franco
+ * Basicamente la funcion lo que hace es mostrar por pantalla el historial de canciones que ya han sido reproducidas.
  * 
  * @param discos Arreglo con el catalogo de caciones/discos
  * @param n_discos Cantidad actul de discos registrados
@@ -1324,13 +1325,12 @@ void vaciar_fila_re(int *n_fila)
 
 /**
  * @brief Funcion por Dani
- * menu principal de la operacion
+ * Submenu para gestionar la fila de reproduccion (consultar, anhadir, quitar, vaciar).
  * 
  * @param discos Arreglo principal que contiene todas las canciones del catalogo.
- * @param fila_re Arreglo que representa la fila de reproduccion de canciones.
- * @param n_fila Puntero que almacena la cantidad actual de canciones en la fila de reproduccion.
- * @param fila_hi Arreglo que contiene el historial de canciones reproducidas.
- * @param n_historial Puntero que almacena la cantidad actual de canciones en el historial.
+ * @param fila_re Arreglo que representa la fila de reproduccion.
+ * @param n_fila Puntero que almacena la cantidad actual de canciones en la fila.
+ * @param n_discos Cantidad total de canciones cargadas en el catalogo.
  */
 void menu_fila_re(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, int n_discos)
 {
