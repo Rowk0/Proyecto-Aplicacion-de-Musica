@@ -9,7 +9,7 @@ Repositorio del proyecto del curso para la gestión de un catálogo musical medi
 
 Autores
 - Benjamin Hernández
-- Daniela
+- Daniela Soto
 - Franco Rodriguez
 
 # Funcionalidades
