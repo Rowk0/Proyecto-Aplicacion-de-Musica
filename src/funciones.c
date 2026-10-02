@@ -9,7 +9,7 @@
 
 /**
  * @brief Funcion por Franco
- * 
+ * La funcion lo que hace es recorrer todos los discos guardados y mostrar una lista de los artistas disponibles en el catalogo
  * @param discos Arreglo con el catálogo de canciones/discos.
  */
 void listar_artistas_disponibles(discos_ discos[MAX_DISCOS])
@@ -18,31 +18,31 @@ void listar_artistas_disponibles(discos_ discos[MAX_DISCOS])
     int seEncontró = 0;
     int j = 0;
 
-    for(int i = 0; i < MAX_DISCOS; i++)
+    for(int i = 0; i < MAX_DISCOS; i++) /**<recorre todos los discos  */
     {
         seEncontró = 0;
 
-        if(discos[i].artista != NULL) 
+        if(discos[i].artista != NULL)  /**<verifica que el disco tenga un artista */
         {   
-            for (int k = 0; k < j; k++)
+            for (int k = 0; k < j; k++) /** < recorre los artista que fueron encontrados */
             {
-                if(strcmp(artistas_disponible[k], discos[i].artista) == 0)
+                if(strcmp(artistas_disponible[k], discos[i].artista) == 0) /**<compara cada artista que a sido encontrado */
                 {
                     seEncontró = 1;
                     break;
                 }
             }
 
-            if (seEncontró == 0)
+            if(seEncontró == 0) /**si el artista no fue encontrado anteriormente */
             {
-                artistas_disponible[j] = discos[i].artista;
-                j++;
+                artistas_disponible[j] = discos[i].artista;/**guarda el puntero del nombre del artissta*/
+                j++; /**aumenta la cantidad de artista encontrados */
             }
         }   
     }
 
     ///////////////////////////////////////////////////////////
-
+    /** muestra los artista disponibles*/
     printf("==================================\n");
     printf("| %-30s |\n", "ARTISTAS DISPONIBLES"); 
     printf("================================== \n");
@@ -56,7 +56,7 @@ void listar_artistas_disponibles(discos_ discos[MAX_DISCOS])
 
 /**
  * @brief Funcion por Franco
- * 
+ * En esta funcion lo que hace es inicializa todos los campos de la estructura discos en valores por defecto
  * @param discos Arreglo con el catálogo de canciones/discos.
  */
 void init_discos(discos_ discos[MAX_DISCOS])
@@ -74,12 +74,13 @@ void init_discos(discos_ discos[MAX_DISCOS])
     }
 }
 
-/**
- * @brief Funcion hecho por Daniela, asigna valor de id en el discos MAX_DISCOS
- * 
- * @param discos Arreglo con el catálogo de canciones/discos.
- */
 
+/**
+ * @brief Funcio hecha por Daniela 
+ * La funcion lo que hace es dar un valor de id en el Max_discos
+ * @param discos Arreglo con el catalogo de caciones/discos
+ * @param n_discos Cantidad actul de discos registrados
+ */
 void generador_id(discos_ discos[MAX_DISCOS], int n_discos)
 {
     discos[0].id = 1000;
@@ -91,8 +92,9 @@ void generador_id(discos_ discos[MAX_DISCOS], int n_discos)
 
 /**
  * @brief Funcion por Franco 
- * 
- * @param discos Arreglo con el catálogo de canciones/discos.
+ * En esta funcion lo que hace es basicamente combinar advervio, sustantivo y adjetiv, para crear un titulo 
+ * @param discos Arreglo con el catalogo de caciones/discos
+ * @param n_discos Cantidad actul de discos registrados
  */
 void generador_titulo(discos_ discos[MAX_DISCOS], int n_discos)
 {
@@ -117,9 +119,9 @@ void generador_titulo(discos_ discos[MAX_DISCOS], int n_discos)
 
 /**
  * @brief Funcion por Daniela
- * 
- * @param discos Arreglo con el catálogo de canciones/discos. 
- * @param n_discos 
+ * En est afuncion lo que hace es generar un artista aleatoriamente de una lista ya predefinida
+ * @param discos Arreglo con el catalogo de caciones/discos
+ * @param n_discos Cantidad actul de discos registrados 
  */
 void generador_artista(discos_ discos[MAX_DISCOS], int n_discos)
 {
@@ -135,9 +137,9 @@ void generador_artista(discos_ discos[MAX_DISCOS], int n_discos)
 
 /**
  * @brief Funcion por Franco
- * 
- * @param discos 
- * @param n_discos 
+ * En esta funcion lo que hace es generar el nombre de un albun aleatoriamente con un sustantivo o adjetivo
+ * @param discos Arreglo con el catalogo de caciones/discos
+ * @param n_discos Cantidad actul de discos registrados
  */
 void generador_album(discos_ discos[MAX_DISCOS], int n_discos)
 {
@@ -168,9 +170,9 @@ void generador_album(discos_ discos[MAX_DISCOS], int n_discos)
 
 /**
  * @brief Funcion por Franco
- * 
- * @param discos 
- * @param n_discos 
+ * En esta funcion lo que hace es basicamente elegir una lista ya predefinidad aleatoraimente
+ * @param discos Arreglo con el catalogo de caciones/discos
+ * @param n_discos Cantidad actul de discos registrados
  */
 void generador_genero(discos_ discos[MAX_DISCOS], int n_discos)
 {
@@ -186,9 +188,9 @@ void generador_genero(discos_ discos[MAX_DISCOS], int n_discos)
 }
 /**
  * @brief Funcion por Franco
- * 
- * @param discos 
- * @param n_discos 
+ * Basicamente lo que hace esta funcion es generar aleatoriamente cuanto puede durar la cancion dentro de un rango de 180 hasta 300 seg
+ * @param discos Arreglo con el catalogo de caciones/discos
+ * @param n_discos Cantidad actul de discos registrados 
  */
 void generador_duracion_seg(discos_ discos[MAX_DISCOS], int n_discos)
 {
@@ -203,7 +205,7 @@ void generador_duracion_seg(discos_ discos[MAX_DISCOS], int n_discos)
 }
 /**
  * @brief Funcion por Franco
- * 
+ * Basicamente lo que hace esta funciones es generar un numero aleatorio entre 1900 a 2026 para el año que se origino el disco
  * @param discos 
  * @param n_discos 
  */
@@ -221,9 +223,9 @@ void generador_anho(discos_ discos[MAX_DISCOS], int n_discos)
 
 /**
  * @brief Funcion por Franco
- * 
- * @param discos 
- * @param n_discos 
+ * En esta funcion lo que hace es generar aleatoraimente los numeros de la cantidad de reproducciones que hay entre 5000 a 10000
+ * @param discos Arreglo con el catalogo de caciones/discos
+ * @param n_discos Cantidad actul de discos registrados
  */
 void generador_n_reproducciones(discos_ discos[MAX_DISCOS], int n_discos)
 {
@@ -239,9 +241,9 @@ void generador_n_reproducciones(discos_ discos[MAX_DISCOS], int n_discos)
 
 /**
  * @brief Funcion por Daniela
- * 
- * @param discos 
- * @param n_discos 
+ * Esta funcion lo que hace es Permuta los elemntos del arrglo de manera aleatoria 
+ * @param discos Arreglo con el catalogo de caciones/discos
+ * @param n_discos Cantidad actul de discos registrados
  */
 void fisher_yates(discos_ discos[MAX_DISCOS], int n_discos)
 {
@@ -257,9 +259,9 @@ void fisher_yates(discos_ discos[MAX_DISCOS], int n_discos)
 
 /**
  * @brief Funcion por Franco
- * 
- * @param discos 
- * @param n_discos 
+ * Basicamente esta funcion lo que hace es imprimir cada catalogo de disco en formato tabla
+ * @param discos Arreglo con el catalogo de caciones/discos
+ * @param n_discos Cantidad actul de discos registrados
  */
 void print_discos(discos_ discos[MAX_DISCOS], int n_discos)
 {
@@ -284,9 +286,22 @@ void print_discos(discos_ discos[MAX_DISCOS], int n_discos)
 
 /**
  * @brief Funcion por Hernandez
- * 
- * @param discos 
- * @param n_discos 
+ * Genera diferentes reportes de ranking del catálogo.
+ *
+ * La función genera tres tipos de rankings:
+ *
+ * 1. Top 5 de canciones con mayor cantidad de reproducciones.
+ * 2. Canción más escuchada de cada género.
+ * 3. Canción más escuchada de cada artista.
+ *
+ * Para obtener el Top 5 global, se utiliza el algoritmo
+ * de ordenamiento Burbuja (Bubble Sort), ordenando las canciones
+ * de mayor a menor cantidad de reproducciones.
+ *
+ * Para los rankings por género y artista, se utilizan las funciones
+ * cancion_mas_escuchada() y cancion_mas_escuchada_art().
+ * @param discos Arreglo que contiene el catálogo de canciones/discos.
+ * @param n_discos Cantidad actual de discos registrados.
  */
 void ranking(discos_ discos[], int n_discos)
 {
@@ -336,9 +351,10 @@ void ranking(discos_ discos[], int n_discos)
 
 /**
  * @brief Funcion por hernandez
+ * Basicamente lo que hace es busca e imprime la cacion mas escuchada de un artista en especifico.
  * 
- * @param discos 
- * @param n_discos 
+ * @param discos Arreglo con el catalogo de caciones/discos
+ * @param n_discos Cantidad actul de discos registrados 
  * @param artista 
  */
 void cancion_mas_ecuchada_art(discos_ discos[], int n_discos, char artista[])
@@ -376,10 +392,15 @@ void cancion_mas_ecuchada_art(discos_ discos[], int n_discos, char artista[])
 
 /**
  * @brief Funcion realizada por Benjamin Hernandez
+ * Busca e imprime la canción más escuchada de un género específico.
+ * La función primero recorre el catálogo y selecciona solamente las canciones que pertenecen al género indicado.
+ *
+ * Posteriormente, utiliza el algoritmo Insertion Sort para ordenar las canciones seleccionadas de mayor a menor cantidad de 
+ * reproducciones finalmente, muestra la primera canción del arreglo ordenado, ya quecorresponde a la canción con mayor cantidad de reproducciones.
  * 
- * @param discos 
- * @param n_discos 
- * @param genero
+ * @param discos Arreglo con el catalogo de caciones/discos
+ * @param n_discos Cantidad actul de discos registrados 
+ * @param genero Es el genero musical que desea buscar
  */
 void cancion_mas_escuchada(discos_ discos[], int n_discos, char genero[]) /**<se ha utilizado Insertion Sort>*/
 {
@@ -421,9 +442,10 @@ void cancion_mas_escuchada(discos_ discos[], int n_discos, char genero[]) /**<se
 
 /**
  * @brief Fucion echo por benjamin hernandez 
+ * Basicamente esta funcion lo que hace es ordenar los discos de mmeno a mayor segun la id (burble sort)
  * 
- * @param discos 
- * @param n_discos 
+ * @param discos Arreglo con el catalogo de caciones/discos
+ * @param n_discos Cantidad actul de discos registrados
  */
 void ordenar_discos_por_id(discos_ discos[MAX_DISCOS], int n_discos) {
     int swapped;
@@ -449,11 +471,13 @@ void ordenar_discos_por_id(discos_ discos[MAX_DISCOS], int n_discos) {
 
 /**
  * @brief  Hecho por benjamin  Hernandez
+ * La función ordena los discos según el criterio seleccionado. Para realizar el ordenamiento, se selecciona un elemento central 
+ * del arreglo como pivote y se separan los elementos menores y mayores respecto a este.
  * 
- * @param discos 
- * @param izquierda 
- * @param derecha 
- * @param criterio 
+ * @param discos Arreglo que contiene los discos que serán ordenados.
+ * @param izquierda Posición inicial del segmento del arreglo que se ordenará.
+ * @param derecha Posición final del segmento del arreglo que se ordenará.
+ * @param criterio Indica el criterio utilizado para comparar los discos.
  */
 void quick_sort(discos_ discos[], int izquierda, int derecha, int criterio)
 {
@@ -492,11 +516,11 @@ void quick_sort(discos_ discos[], int izquierda, int derecha, int criterio)
 
 /**
  * @brief Funcion Hecha por Benjamin Hernandez
- * 
- * @param discos_1 
- * @param discos_2 
- * @param criterio 
- * @return int 
+ * Esta funcion lo que hace es comparar dos estructuras de discos segun el criterio
+ * @param discos_1 Primer disco 
+ * @param discos_2 segundo disco
+ * @param criterio id, discos, titulo,artista, albun, anho, reproducciones
+ * @return Valor menor, igual, o mayor a 0 segun la comparacion
  */
 int comparar_discos(discos_ discos_1, discos_ discos_2, int criterio)
 {
@@ -527,10 +551,18 @@ int comparar_discos(discos_ discos_1, discos_ discos_2, int criterio)
             return 0;
     }
 }
+
+
+
 /**
- * @brief Funcion realizado por benjamin Hernandez
+ * @brief 
  * 
  * @param discos 
+ * @param fila_re 
+ * @param n_fila 
+ * @param n_discos 
+ * @param fila_hi 
+ * @param n_historial 
  */
 void menu(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, int n_discos, discos_ fila_hi[MAX_FILA], int *n_historial)
 {
@@ -629,12 +661,15 @@ void menu(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, in
 
 /**
  * @brief Funcion por Franco
- * 
- * @param discos 
- * @param fila_re 
- * @param n_fila 
- * @param fila_hi 
- * @param n_historial 
+ * Reproduce la primera canción de la fila de reproducción.
+ * La función toma la primera canción de la fila de reproducción,aumenta su cantidad de reproducciones en el catálogo principal,la agrega al historial 
+ * y finalmente la elimina de la fila dereproducción.
+ *
+ * @param discos Arreglo que contiene el catálogo principal de canciones.
+ * @param fila_re Arreglo que contiene las canciones de la fila de reproducción.
+ * @param n_fila Puntero que contiene la cantidad de canciones actualmentealmacenadas en la fila de reproducción.
+ * @param fila_hi Arreglo que contiene el historial de canciones reproducidas.
+ * @param n_historial Puntero que contiene la cantidad de canciones almacenadas actualmente en el historial.
  */
 void reproducir_musica(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, discos_ fila_hi[MAX_FILA], int *n_historial)
 {
@@ -686,10 +721,15 @@ void reproducir_musica(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], in
 
 /**
  * @brief Funcio por Franco y Daniela
- * 
- * @param fila_hi 
- * @param fila_re 
- * @param n_historial 
+ * Agrega una canción reproducida al inicio del historial.
+ *La función recibe una canción desde la fila de reproducción y laagrega en la primera posición del historial.
+ *
+ * Para mantener el orden del historial, primero desplaza todos los elementos existentes una posición hacia la derecha.
+ * Si el historial alcanza MAX_FILA, se elimina el elemento más antiguo antes de agregar la nueva canción.
+ *
+ * @param fila_hi Arreglo que contiene el historial de canciones reproducidas.
+ * @param fila_re Arreglo que contiene la fila de reproducción actual.
+ * @param n_historial Puntero que almacena la cantidad actual de canciones
  */
 void historial_musica(discos_ fila_hi[MAX_FILA], discos_ fila_re[MAX_FILA], int *n_historial)
 {
@@ -720,8 +760,8 @@ void historial_musica(discos_ fila_hi[MAX_FILA], discos_ fila_re[MAX_FILA], int 
 /**
  * @brief Funcion por Franco
  * 
- * @param fila_hi 
- * @param n_historial 
+ * @param discos Arreglo con el catalogo de caciones/discos
+ * @param n_discos Cantidad actul de discos registrados
  */
 void print_fila_historial(discos_ fila_hi[MAX_FILA], int *n_historial)
 {
@@ -741,9 +781,10 @@ void print_fila_historial(discos_ fila_hi[MAX_FILA], int *n_historial)
 
 /**
  * @brief Funcion por Hernandez
+ *  Basicacamente la funcion lo que hace es buscar una cancion por ID mediante la busqueda binaria
  * 
- * @param discos 
- * @param n_discos 
+ * @param discos Arreglo con el catalogo de caciones/discos
+ * @param n_discos Cantidad actul de discos registrados
  */
 void buscar_id(discos_ discos[MAX_DISCOS], int n_discos)
 {
@@ -773,9 +814,11 @@ void buscar_id(discos_ discos[MAX_DISCOS], int n_discos)
 }
 /**
  * @brief Funcion por Hernandez
+ * Busca canciones dentro del catalogo mediante su titulo exacto, recorriendo todos los discos y comparando cada titulo con el nombre
+ * ingresado por el usuario.
  * 
- * @param discos 
- * @param n_discos 
+ * @param discos Arreglo con el catalogo de caciones/discos
+ * @param n_discos Cantidad actul de discos registrados
  */
 void buscar_nombre(discos_ discos[], int n_discos)
 {
@@ -816,9 +859,9 @@ void buscar_nombre(discos_ discos[], int n_discos)
 
 /**
  * @brief hecho por benjamin HErnandez
- * 
- * @param disco 
- * @param n_discos 
+ * Basicamente lo que hace es buscar todas las canciones de un artisata en particular
+ * @param discos Arreglo con el catalogo de caciones/discos
+ * @param n_discos Cantidad actul de discos registrados
  */
 void buscar_artista(discos_ discos[], int n_discos)
 {
@@ -848,9 +891,13 @@ void buscar_artista(discos_ discos[], int n_discos)
 
 /**
  * @brief Funcion por Franco
- * 
- * @param discos 
- * @param n_discos 
+ * Basicamente lo que hace la funcion es que busca y muestra las canciones pertenecientes a un genero especifico.
+ * La funcion recorre el catalogo para contar cuantas canciones existen de cada genero disponible. Luego solicita al usuario seleccionar un genero
+ * y vuelve a recorrer el catalogo para mostrar todas las canciones que coincidan con el genero seleccionado, indicando finalmente la cantidad
+ * de canciones encontradas.
+ *
+ * @param discos Arreglo que contiene el catalogo de canciones y sus respectivos datos.
+ * @param n_discos Cantidad actual de canciones o discos registrados en el catalogo.
  */
 void buscar_por_genero(discos_ discos[MAX_DISCOS], int n_discos)
 {
@@ -952,12 +999,15 @@ void buscar_por_genero(discos_ discos[MAX_DISCOS], int n_discos)
 
 /**
  * @brief Busqueda binaria realizado por benjamin Hernandez
+ * Realiza una busqueda binaria recursiva por ID en el catalogo de discos.
  * 
- * @param discos 
- * @param busqueda 
- * @param izquierda 
- * @param derecha 
- * @return int 
+ * @note El arreglo 'discos' debe estar previamente ordenado de menor a mayor por ID.
+ * 
+ * @param discos Arreglo con el catálogo de canciones/discos.
+ * @param busqueda ID del disco que se desea encontrar.
+ * @param izquierda Índice inicial de la sublista.
+ * @param derecha Índice final de la sublista.
+ * @return int Índice del disco encontrado, o -1 si no existe.
  */
 int busqueda_binaria_recursiva(discos_ discos[], int busqueda, int izquierda, int derecha)
 {
@@ -987,8 +1037,10 @@ int busqueda_binaria_recursiva(discos_ discos[], int busqueda, int izquierda, in
 
 /**
  * @brief Funcion exportacion de datos csv Realizado  por Benjamin  Hernandez
+ * Basicamente la funcion lo que hace es laexporta el catalogo de discos actual hacia el archivo CSV.
  * 
- * @param discos 
+ * @param discos Arreglo con el catálogo de canciones/discos.
+ * @param n_discos Cantidad actual de discos registrados.
  */
 void Exportacion(discos_ discos[MAX_DISCOS], int n_discos)
 {
@@ -1010,9 +1062,10 @@ void Exportacion(discos_ discos[MAX_DISCOS], int n_discos)
 
 /**  
  * @brief Creado por Benjamin Hernandez: Lo que hace es que ingresa la  
+ * Basicamente la funcion lo que hace es carga el catalogo de discos desde un archivo CSV.
  * 
- * @param discos 
- * @param n_discos 
+ * @param discos Arreglo donde se almacenaran los discos importados.
+ * @return int Cantidad de discos leidos exitosamente.
  */
 int Inportacion(discos_ discos[MAX_DISCOS])
 {
@@ -1046,7 +1099,7 @@ int Inportacion(discos_ discos[MAX_DISCOS])
 
 /**
  * @brief Funcion liberacion de memoria de punteros por Franco
- * 
+ * Basicamente lo que hace es libera la memoria dinamica asignada a las cadenas de texto del catalogo.
  * @param discos discos discos_1 liberar
  */
 void liberar_memoria(discos_ discos[MAX_DISCOS])
@@ -1078,9 +1131,10 @@ void liberar_memoria(discos_ discos[MAX_DISCOS])
     
 /**
  * @brief Funcion por Dani
+ * Basicamente lo que hace es mostrar por pantalla el contenido actual de la fila de reproduccion.
  * 
- * @param fila_re 
- * @param n_fila 
+ * @param fila_re Arreglo de la fila de reproduccion.
+ * @param n_fila Cantidad actual de canciones en la fila.
  */
 void consultar_fila_re(discos_ fila_re[MAX_FILA],int n_fila)
 {
@@ -1100,16 +1154,16 @@ void consultar_fila_re(discos_ fila_re[MAX_FILA],int n_fila)
         printf("| %-5d | %-5d | %-30s | %-15s | %-20s|\n", i+1, fila_re[i].id, fila_re[i].titulo, fila_re[i].artista, fila_re[i].album);
     }
     printf("===========================================================================================\n");
-
 }
 
 /**
  * @brief Funcion por Dani
+ * Basicamente la funcion lo que hace es busca una cancion por ID y la añade a la fila de reproduccion.
  * 
- * @param fila_re 
- * @param discos 
- * @param n_fila 
- * @param n_discos 
+ * @param fila_re Arreglo de la fila de reproduccion.
+ * @param discos Arreglo con el catálogo completo de discos.
+ * @param n_fila Puntero a la cantidad de canciones actualmente en la fila.
+ * @param n_discos Cantidad total de discos en el catálogo.
  */
 void anhadir_fila_re(discos_ fila_re[MAX_FILA], discos_ discos[MAX_DISCOS], int *n_fila, int n_discos)
 {
@@ -1165,9 +1219,10 @@ void anhadir_fila_re(discos_ fila_re[MAX_FILA], discos_ discos[MAX_DISCOS], int 
 
 /**
  * @brief Funcion por Dani
+ * Basicamente la funncion lo que hace es elimina una cancion de la fila de reproduccion, ya sea por posicion o por ID.
  * 
- * @param fila_re 
- * @param n_fila 
+ * @param fila_re Arreglo que representa la fila de reproduccion.
+ * @param n_fila Puntero a la cantidad de canciones en la fila.
  */
 void quitar_fila_re(discos_ fila_re[MAX_FILA], int *n_fila)
 {
@@ -1257,8 +1312,9 @@ void quitar_fila_re(discos_ fila_re[MAX_FILA], int *n_fila)
 
 /**
  * @brief Funcion por Dani
+ * Basicamnete lo que hace es vaciar completamente la fila de reproduccion restableciendo su contador.
  * 
- * @param n_fila 
+ * @param n_fila Puntero al numero de elementos en la fila de reproduccion.
  */
 void vaciar_fila_re(int *n_fila)
 {
@@ -1268,11 +1324,13 @@ void vaciar_fila_re(int *n_fila)
 
 /**
  * @brief Funcion por Dani
+ * menu principal de la operacion
  * 
- * @param discos 
- * @param fila_re 
- * @param n_fila 
- * @param n_discos 
+ * @param discos Arreglo principal que contiene todas las canciones del catalogo.
+ * @param fila_re Arreglo que representa la fila de reproduccion de canciones.
+ * @param n_fila Puntero que almacena la cantidad actual de canciones en la fila de reproduccion.
+ * @param fila_hi Arreglo que contiene el historial de canciones reproducidas.
+ * @param n_historial Puntero que almacena la cantidad actual de canciones en el historial.
  */
 void menu_fila_re(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, int n_discos)
 {
