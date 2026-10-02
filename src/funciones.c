@@ -1,16 +1,16 @@
 /**
  * @file funciones.c
  * @author Benjamin Hernndez
- * @brief aqui no se que poner
+ * @brief Listado de funciones del proyecto
  * @date 2026-09-27
  * 
  */
 #include "commons.h"
 
 /**
- * @brief funcion por Franco
+ * @brief Funcion por Franco
  * 
- * @param discos 
+ * @param discos Arreglo con el catálogo de canciones/discos.
  */
 void listar_artistas_disponibles(discos_ discos[MAX_DISCOS])
 {
@@ -55,9 +55,9 @@ void listar_artistas_disponibles(discos_ discos[MAX_DISCOS])
 }
 
 /**
- * @brief funcion por Franco
+ * @brief Funcion por Franco
  * 
- * @param discos 
+ * @param discos Arreglo con el catálogo de canciones/discos.
  */
 void init_discos(discos_ discos[MAX_DISCOS])
 {
@@ -75,9 +75,9 @@ void init_discos(discos_ discos[MAX_DISCOS])
 }
 
 /**
- * @brief funcion hecho por Daniela, asigna valor de id en el discos MAX_DISCOS
+ * @brief Funcion hecho por Daniela, asigna valor de id en el discos MAX_DISCOS
  * 
- * @param discos 
+ * @param discos Arreglo con el catálogo de canciones/discos.
  */
 
 void generador_id(discos_ discos[MAX_DISCOS], int n_discos)
@@ -92,7 +92,7 @@ void generador_id(discos_ discos[MAX_DISCOS], int n_discos)
 /**
  * @brief Funcion por Franco 
  * 
- * @param discos representa los discos discos_1 editar
+ * @param discos Arreglo con el catálogo de canciones/discos.
  */
 void generador_titulo(discos_ discos[MAX_DISCOS], int n_discos)
 {
@@ -116,9 +116,9 @@ void generador_titulo(discos_ discos[MAX_DISCOS], int n_discos)
 }
 
 /**
- * @brief funcion por Daniela
+ * @brief Funcion por Daniela
  * 
- * @param discos 
+ * @param discos Arreglo con el catálogo de canciones/discos. 
  * @param n_discos 
  */
 void generador_artista(discos_ discos[MAX_DISCOS], int n_discos)
@@ -133,6 +133,12 @@ void generador_artista(discos_ discos[MAX_DISCOS], int n_discos)
     }
 }
 
+/**
+ * @brief Funcion por Franco
+ * 
+ * @param discos 
+ * @param n_discos 
+ */
 void generador_album(discos_ discos[MAX_DISCOS], int n_discos)
 {
     char *sustantivo[] = {"Pan", "Canada", "Edgardo", "Bordoli", "Torre"};
@@ -160,6 +166,12 @@ void generador_album(discos_ discos[MAX_DISCOS], int n_discos)
     }
 }
 
+/**
+ * @brief Funcion por Franco
+ * 
+ * @param discos 
+ * @param n_discos 
+ */
 void generador_genero(discos_ discos[MAX_DISCOS], int n_discos)
 {
     char *genero[] = {"Pop", "Electronica", "Jazz", "Country", "Hyper Pop", "Dubstep", "DnB", "Indie Rock", "Soundtrack", "Musica clasica"};
@@ -172,7 +184,12 @@ void generador_genero(discos_ discos[MAX_DISCOS], int n_discos)
         discos[i].genero = strdup(genero[aux]);
     }
 }
-
+/**
+ * @brief Funcion por Franco
+ * 
+ * @param discos 
+ * @param n_discos 
+ */
 void generador_duracion_seg(discos_ discos[MAX_DISCOS], int n_discos)
 {
     int num = 0;
@@ -184,7 +201,12 @@ void generador_duracion_seg(discos_ discos[MAX_DISCOS], int n_discos)
         discos[i].duracion_seg = num;
     }
 }
-
+/**
+ * @brief Funcion por Franco
+ * 
+ * @param discos 
+ * @param n_discos 
+ */
 void generador_anho(discos_ discos[MAX_DISCOS], int n_discos)
 {
     int anho = 0;
@@ -197,6 +219,12 @@ void generador_anho(discos_ discos[MAX_DISCOS], int n_discos)
     }
 }
 
+/**
+ * @brief Funcion por Franco
+ * 
+ * @param discos 
+ * @param n_discos 
+ */
 void generador_n_reproducciones(discos_ discos[MAX_DISCOS], int n_discos)
 {
     int n_reproducciones = 0;
@@ -209,6 +237,12 @@ void generador_n_reproducciones(discos_ discos[MAX_DISCOS], int n_discos)
     }
 }
 
+/**
+ * @brief Funcion por Daniela
+ * 
+ * @param discos 
+ * @param n_discos 
+ */
 void fisher_yates(discos_ discos[MAX_DISCOS], int n_discos)
 {
     int j = 0;
@@ -221,6 +255,12 @@ void fisher_yates(discos_ discos[MAX_DISCOS], int n_discos)
     }
 }
 
+/**
+ * @brief Funcion por Franco
+ * 
+ * @param discos 
+ * @param n_discos 
+ */
 void print_discos(discos_ discos[MAX_DISCOS], int n_discos)
 {
     printf("====================================================================================================================================================\n");
@@ -242,6 +282,12 @@ void print_discos(discos_ discos[MAX_DISCOS], int n_discos)
     printf("====================================================================================================================================================\n\n");
 }
 
+/**
+ * @brief Funcion por Hernandez
+ * 
+ * @param discos 
+ * @param n_discos 
+ */
 void ranking(discos_ discos[], int n_discos)
 {
     for (int i = 0; i < n_discos - 1; i++)
@@ -288,6 +334,13 @@ void ranking(discos_ discos[], int n_discos)
     }
 }
 
+/**
+ * @brief Funcion por hernandez
+ * 
+ * @param discos 
+ * @param n_discos 
+ * @param artista 
+ */
 void cancion_mas_ecuchada_art(discos_ discos[], int n_discos, char artista[])
 {
     int max_reprod = -1;
@@ -574,6 +627,15 @@ void menu(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, in
     }
 }
 
+/**
+ * @brief Funcion por Franco
+ * 
+ * @param discos 
+ * @param fila_re 
+ * @param n_fila 
+ * @param fila_hi 
+ * @param n_historial 
+ */
 void reproducir_musica(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, discos_ fila_hi[MAX_FILA], int *n_historial)
 {
     int pos_borrar = -1;
@@ -622,6 +684,13 @@ void reproducir_musica(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], in
 
 }
 
+/**
+ * @brief Funcio por Franco y Daniela
+ * 
+ * @param fila_hi 
+ * @param fila_re 
+ * @param n_historial 
+ */
 void historial_musica(discos_ fila_hi[MAX_FILA], discos_ fila_re[MAX_FILA], int *n_historial)
 {
     if (*n_historial == MAX_FILA)
@@ -648,6 +717,12 @@ void historial_musica(discos_ fila_hi[MAX_FILA], discos_ fila_re[MAX_FILA], int 
     printf("===========================================================================================\n");
 }
 
+/**
+ * @brief Funcion por Franco
+ * 
+ * @param fila_hi 
+ * @param n_historial 
+ */
 void print_fila_historial(discos_ fila_hi[MAX_FILA], int *n_historial)
 {
     //NO SE COMO HACER ESTO
@@ -664,6 +739,12 @@ void print_fila_historial(discos_ fila_hi[MAX_FILA], int *n_historial)
     printf("===========================================================================================\n");
 }
 
+/**
+ * @brief Funcion por Hernandez
+ * 
+ * @param discos 
+ * @param n_discos 
+ */
 void buscar_id(discos_ discos[MAX_DISCOS], int n_discos)
 {
     int busca;
@@ -690,7 +771,12 @@ void buscar_id(discos_ discos[MAX_DISCOS], int n_discos)
         printf("\nNo se discos_1 encontrado ninguna cancion con el ID %d\n", busca);
     }
 }
-
+/**
+ * @brief Funcion por Hernandez
+ * 
+ * @param discos 
+ * @param n_discos 
+ */
 void buscar_nombre(discos_ discos[], int n_discos)
 {
     char nombre_ingresado[50];
@@ -760,6 +846,12 @@ void buscar_artista(discos_ discos[], int n_discos)
     printf("====================================================================================================================================================\n");
 }
 
+/**
+ * @brief Funcion por Franco
+ * 
+ * @param discos 
+ * @param n_discos 
+ */
 void buscar_por_genero(discos_ discos[MAX_DISCOS], int n_discos)
 {
     char seleccion[50] = {0};
@@ -984,7 +1076,12 @@ void liberar_memoria(discos_ discos[MAX_DISCOS])
     }
 }
     
-
+/**
+ * @brief Funcion por Dani
+ * 
+ * @param fila_re 
+ * @param n_fila 
+ */
 void consultar_fila_re(discos_ fila_re[MAX_FILA],int n_fila)
 {
     if (n_fila == 0)
@@ -1006,6 +1103,14 @@ void consultar_fila_re(discos_ fila_re[MAX_FILA],int n_fila)
 
 }
 
+/**
+ * @brief Funcion por Dani
+ * 
+ * @param fila_re 
+ * @param discos 
+ * @param n_fila 
+ * @param n_discos 
+ */
 void anhadir_fila_re(discos_ fila_re[MAX_FILA], discos_ discos[MAX_DISCOS], int *n_fila, int n_discos)
 {
     if (*n_fila >= MAX_FILA)
@@ -1058,6 +1163,12 @@ void anhadir_fila_re(discos_ fila_re[MAX_FILA], discos_ discos[MAX_DISCOS], int 
     printf("SE ANHADIO A LA FILA DE REPRODUCCION\n");
 }
 
+/**
+ * @brief Funcion por Dani
+ * 
+ * @param fila_re 
+ * @param n_fila 
+ */
 void quitar_fila_re(discos_ fila_re[MAX_FILA], int *n_fila)
 {
     if (*n_fila == 0)
@@ -1144,12 +1255,25 @@ void quitar_fila_re(discos_ fila_re[MAX_FILA], int *n_fila)
     (*n_fila)--;
 }
 
+/**
+ * @brief Funcion por Dani
+ * 
+ * @param n_fila 
+ */
 void vaciar_fila_re(int *n_fila)
 {
     *n_fila = 0;
     printf("Fila vaciada completamente \n");
 }
 
+/**
+ * @brief Funcion por Dani
+ * 
+ * @param discos 
+ * @param fila_re 
+ * @param n_fila 
+ * @param n_discos 
+ */
 void menu_fila_re(discos_ discos[MAX_DISCOS], discos_ fila_re[MAX_FILA], int *n_fila, int n_discos)
 {
     int opcion_fila_re = -1;
